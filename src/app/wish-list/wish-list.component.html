@@ -1,0 +1,26 @@
+<h2>Wannado</h2>
+<ul class="wishes">
+  <li *ngFor="let wish of wishes; let i = index"
+    [class.selected]="wish === selectedWish"
+    [class.done]="wish.done"
+    (click)="onSelect(wish)">
+    <span class="badge">{{i+1}}</span>
+    <i *ngIf="!wish.done" class="fa fa-square-o" aria-hidden="true"></i>
+    <i *ngIf="wish.done" class="fa fa-check-square-o" aria-hidden="true"></i>
+    {{wish.name}}
+    <button class="delete"
+    (click)="delete(wish); $event.stopPropagation()">x</button>
+  </li>
+</ul>
+<div *ngIf="selectedWish">
+  <h2>
+    {{selectedWish.name | uppercase}} is selected
+  </h2>
+  <button (click)="gotoDetail()">View details</button>
+</div>
+<div>
+  <label>New wish:</label> <input #wishName />
+  <button (click)="add(wishName.value); wishName.value=''">
+    Add
+  </button>
+</div>
