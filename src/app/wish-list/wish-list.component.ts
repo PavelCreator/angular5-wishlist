@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 
 export class WishListComponent implements OnInit {
-  title = 'Wish List';
+  title = 'Wannado';
   wishes: Wish[];
   selectedWish: Wish;
 

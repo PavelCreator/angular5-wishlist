@@ -2,8 +2,7 @@
   "rules": {
     "class-name": true,
     "comment-format": [
-      true,
-      "check-space"
+      true
     ],
     "curly": true,
     "eofline": true,
@@ -55,12 +54,7 @@
       true,
       "check-open-brace",
       "check-catch",
-      "check-else",
-      "check-whitespace"
-    ],
-    "quotemark": [
-      true,
-      "single"
+      "check-else"
     ],
     "radix": true,
     "semicolon": [

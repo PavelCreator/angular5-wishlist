@@ -17,38 +17,45 @@ export class WishService {
 
   constructor(private http: Http) { }
 
-  getWishes(): Promise<Wish[]>{
-
-    //return this.wishes;
-   // return Promise.resolve(this.wishes);
+  getWishes(): Promise<Wish[]> {
     return new Promise<Wish[]>((resolve, reject) => {
-      var wishes = localStorage.getItem("wishes");
-      if (wishes) {
-        this.wishes = JSON.parse(wishes);
-        resolve(this.wishes);
-        console.log("localStorage wishes =", wishes);
-      } else {
-        this.http.get(this.wishesUrl)
-          .toPromise()
-          .then(response => {
-            var wishes = response.json().data as Wish[];
-            console.log("db wishes =", wishes);
-            resolve(wishes);
-          });
-          //.catch(this.handleError);
+      switch (this.mode) {
+        case Constants.Modes.Guest:
+          let wishesString = localStorage.getItem("wishes");
+          this.wishes = JSON.parse(wishesString);
+          resolve(this.wishes || []);
+          break;
+
+        case Constants.Modes.User:
+          this.http.get(this.wishesUrl)
+            .toPromise()
+            .then(response => {
+              this.wishes = response.json().data as Wish[];
+              console.log("db wishes =", this.wishes);
+              resolve(this.wishes);
+            });
+          break;
       }
     });
   }
 
-/*  getWish(id:number): Wish {
-    let wishes = this.getWishes();
-    let wish = wishes.find(wish => wish.id === id)
-    return wish;
-  }*/
+  getWish(id: number): Promise<Wish> {
+    return new Promise<Wish>((resolve, reject) => {
+      switch (this.mode) {
+        case Constants.Modes.Guest:
+          if (this.wishes){
+            let wish = this.wishes.find(wish => wish.id === id);
+            resolve(wish);
+          }
+          break;
 
-  getWish(id:number):Promise<Wish> {
-    return this.getWishes()
-      .then(wishes => wishes.find(wish => wish.id === id));
+        case Constants.Modes.User:
+          /*let wishes = this.getWishes();
+          let wish = wishes.find(wish => wish.id === id)
+          return wish;*/
+          break;
+      }
+    });
   }
 
   update(wish:Wish):Promise<Wish> {
@@ -61,7 +68,7 @@ export class WishService {
   }
 
   create(name: string): Promise<Wish> {
-    var newWish:Wish = {
+    let newWish:Wish = {
       id: null,
       name: name,
       done: false
@@ -77,16 +84,25 @@ export class WishService {
   }
 
   delete(wish: Wish): Promise<void> {
-    var wishes = this.wishes;
-    this.wishes = this.wishes.filter(w => w !== wish);
-    localStorage.setItem("wishes", JSON.stringify(this.wishes));
-    return Promise.resolve(null);
+    return new Promise<void>((resolve, reject) => {
+      this.wishes = this.wishes.filter(w => w !== wish);
+      switch (this.mode) {
+        case Constants.Modes.Guest:
+          localStorage.setItem("wishes", JSON.stringify(this.wishes));
+          resolve(null);
+          break;
 
-/*    const url = `${this.wishesUrl}/${id}`;
+        case Constants.Modes.User:
+          /*    const url = `${this.wishesUrl}/${id}`;
     return this.http.delete(url, {headers: this.headers})
       .toPromise()
       .then(() => null)
       .catch(this.handleError);*/
+          break;
+      }
+    });
+
+
   }
 
 /*  private handleError(error: any): Promise<any> {
