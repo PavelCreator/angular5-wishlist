@@ -7,12 +7,14 @@
     </button>
   </form>
 </div>
-<ul class="wishes">
+<ul class="wishes" dnd-sortable-container [sortableData]="wishes">
   <li *ngFor="let wish of wishes; let i = index"
       [class.selected]="wish === selectedWish"
       [class.done]="wish.done"
       (click)="toggleStatus(wish.id)"
       class="wish"
+      dnd-sortable [sortableIndex]="i"
+      (onDropSuccess)="updateList()"
   >
     <span class="badge">{{i+1}}</span>
     <span class="done-wrapper">
@@ -20,11 +22,21 @@
       <i *ngIf="wish.done" class="fa fa-check-square-o" aria-hidden="true"></i>
     </span>
     {{wish.name}}
+<!--    <span *ng-if="!wish.edit" (click)="editName(wish)">{{wish.name}}</span>
+    <form *ng-if="wish.edit" (ngSubmit)="add(wishName.value); wish.nameName.value=''" #heroForm="ngForm">-->
+      <label>New wish:</label> <input #wishName/>
+      <button type="submit">
+        Save
+      </button>
+    </form>
     <button class="right" (click)="delete(wish); $event.stopPropagation()">
-      Delete
+      <i class="fa fa-times" aria-hidden="true"></i>
     </button>
     <button class="right" (click)="gotoDetail(wish.id); $event.stopPropagation()">
       View details
+    </button>
+    <button class="right" dnd-sortable-handle>
+      <i class="fa fa-arrows" aria-hidden="true"></i>
     </button>
   </li>
 </ul>

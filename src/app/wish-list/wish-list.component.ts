@@ -58,4 +58,9 @@ export class WishListComponent implements OnInit {
         }
       );
   }
+
+  updateList(): void {
+    this.wishService.updateList(this.wishes)
+      .catch((wishes) => this.wishes = wishes);
+  }
 }

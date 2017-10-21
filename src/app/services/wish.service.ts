@@ -143,6 +143,22 @@ export class WishService {
       //.catch(this.handleError);
   }
 
+  updateList(wishes: Wish[]): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      switch (this.mode) {
+        case Constants.Modes.Guest:
+          this.wishes = wishes;
+          localStorage.setItem("wishes", JSON.stringify(this.wishes));
+          resolve();
+          break;
+
+        case Constants.Modes.User:
+          reject(this.wishes);
+          break;
+      }
+    });
+  }
+
 /*  private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
