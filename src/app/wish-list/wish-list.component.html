@@ -1,26 +1,30 @@
 <h2>Wannado</h2>
+<div>
+  <form (ngSubmit)="add(wishName.value); wishName.value=''" #heroForm="ngForm">
+    <label>New wish:</label> <input #wishName/>
+    <button type="submit">
+      Add
+    </button>
+  </form>
+</div>
 <ul class="wishes">
   <li *ngFor="let wish of wishes; let i = index"
-    [class.selected]="wish === selectedWish"
-    [class.done]="wish.done"
-    (click)="onSelect(wish)">
+      [class.selected]="wish === selectedWish"
+      [class.done]="wish.done"
+      (click)="toggleStatus(wish.id)"
+      class="wish"
+  >
     <span class="badge">{{i+1}}</span>
-    <i *ngIf="!wish.done" class="fa fa-square-o" aria-hidden="true"></i>
-    <i *ngIf="wish.done" class="fa fa-check-square-o" aria-hidden="true"></i>
+    <span class="done-wrapper">
+      <i *ngIf="!wish.done" class="fa fa-square-o" aria-hidden="true"></i>
+      <i *ngIf="wish.done" class="fa fa-check-square-o" aria-hidden="true"></i>
+    </span>
     {{wish.name}}
-    <button class="delete"
-    (click)="delete(wish); $event.stopPropagation()">x</button>
+    <button class="right" (click)="delete(wish); $event.stopPropagation()">
+      Delete
+    </button>
+    <button class="right" (click)="gotoDetail(wish.id); $event.stopPropagation()">
+      View details
+    </button>
   </li>
 </ul>
-<div *ngIf="selectedWish">
-  <h2>
-    {{selectedWish.name | uppercase}} is selected
-  </h2>
-  <button (click)="gotoDetail()">View details</button>
-</div>
-<div>
-  <label>New wish:</label> <input #wishName />
-  <button (click)="add(wishName.value); wishName.value=''">
-    Add
-  </button>
-</div>

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Wish } from '../entities/wish';
-import { WishService } from '../services/wish.service';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Wish} from '../entities/wish';
+import {WishService} from '../services/wish.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'my-wishes',
@@ -12,52 +12,50 @@ import { Router } from '@angular/router';
 export class WishListComponent implements OnInit {
   title = 'Wannado';
   wishes: Wish[];
-  selectedWish: Wish;
 
-  constructor(
-        private router: Router,
-        private wishService: WishService) { }
-
-/*  getWishes(): void {
-    this.wishService.getWishes().then(wishes => this.wishes = wishes);
-  }*/
+  constructor(private router: Router,
+              private wishService: WishService) {
+  }
 
   getWishes(): void {
-    this.wishService.getWishes().then(wishes => this.wishes = wishes);
+    this.wishService.getWishes()
+      .then(wishes => this.wishes = wishes);
   }
 
   ngOnInit(): void {
     this.getWishes();
   }
 
-  onSelect(wish:Wish):void {
-    this.selectedWish = wish;
+  gotoDetail(id: string): void {
+    this.router.navigate(['/detail', id]);
   }
 
-  gotoDetail():void {
-    this.router.navigate(['/detail', this.selectedWish.id]);
+  toggleStatus(wishId: string) {
+    this.wishService.toggleStatus(wishId)
+      .then((wishes) => this.wishes = wishes);
   }
 
   add(name: string): void {
     name = name.trim();
-    if (!name) { return; }
+    if (!name) {
+      return;
+    }
     this.wishService.create(name)
       .then(
-    /*wish => {
-        this.wishes.push(wish);
-        this.selectedWish = null;
-      }*/
+        /*wish => {
+												this.wishes.push(wish);
+												this.selectedWish = null;
+										}*/
       );
   }
 
   delete(wish: Wish): void {
     this.wishService
-        .delete(wish)
-        .then(
-          () => {
+      .delete(wish)
+      .then(
+        () => {
           this.wishes = this.wishes.filter(h => h !== wish);
-          if (this.selectedWish === wish) { this.selectedWish = null; }
         }
-        );
+      );
   }
 }

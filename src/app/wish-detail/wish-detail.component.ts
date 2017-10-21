@@ -15,22 +15,22 @@ import 'rxjs/add/operator/switchMap';
 export class WishDetailComponent implements OnInit {
   @Input() wish: Wish;
 
-  constructor(private wishService:WishService,
-              private route:ActivatedRoute,
-              private location:Location) {
+  constructor(private wishService: WishService,
+              private route: ActivatedRoute,
+              private location: Location) {
   }
 
-  ngOnInit():void {
+  ngOnInit(): void {
     this.route.params
-      .switchMap((params:Params) => this.wishService.getWish(+params['id']))
-      .subscribe((wish:Wish) => this.wish = wish);
+      .switchMap((params: Params) => this.wishService.getWish(params['id']))
+      .subscribe((wish: Wish) => this.wish = wish);
   }
 
-  goBack():void {
+  goBack(): void {
     this.location.back();
   }
 
-  save():void {
+  save(): void {
     this.wishService.update(this.wish)
       .then(() => this.goBack());
   }

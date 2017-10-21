@@ -1,5 +1,5 @@
 export class Wish {
-  id: number;
+  id: string;
   name: string;
   done: boolean;
 }

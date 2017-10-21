@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
+import { UUID } from 'angular2-uuid';
 
 import 'rxjs/add/operator/toPromise';
 
 import { Wish } from '../entities/wish';
 import { Constants } from './constants.service';
+import { DataMockService } from '../api/data-mock.service';
 
 @Injectable()
 export class WishService {
@@ -15,14 +17,17 @@ export class WishService {
 
   //TODO check auth and switch mode to 'user' if user authenticated
 
-  constructor(private http: Http) { }
+  constructor(
+    private http: Http,
+    private dataMockService: DataMockService
+  ) { }
 
   getWishes(): Promise<Wish[]> {
     return new Promise<Wish[]>((resolve, reject) => {
       switch (this.mode) {
         case Constants.Modes.Guest:
           let wishesString = localStorage.getItem("wishes");
-          this.wishes = JSON.parse(wishesString);
+          this.wishes = wishesString ? JSON.parse(wishesString) : this.dataMockService.getWishes();
           resolve(this.wishes || []);
           break;
 
@@ -39,7 +44,7 @@ export class WishService {
     });
   }
 
-  getWish(id: number): Promise<Wish> {
+  getWish(id: string): Promise<Wish> {
     return new Promise<Wish>((resolve, reject) => {
       switch (this.mode) {
         case Constants.Modes.Guest:
@@ -58,29 +63,55 @@ export class WishService {
     });
   }
 
-  update(wish:Wish):Promise<Wish> {
-    const url = `${this.wishesUrl}/${wish.id}`;
-    return this.http
-      .put(url, JSON.stringify(wish), {headers: this.headers})
-      .toPromise()
-      .then(() => wish);
-      //.catch(this.handleError);
-  }
-
-  create(name: string): Promise<Wish> {
-    let newWish:Wish = {
-      id: null,
+  generateWish(name: string) {
+    let newWish: Wish = {
+      id: UUID.UUID(),
       name: name,
       done: false
     };
+    console.log("newWish =", newWish);
     this.wishes.push(newWish);
-    localStorage.setItem("wishes", JSON.stringify(this.wishes));
-    return Promise.resolve(newWish);
-    /*    return this.http
-      .post(this.wishesUrl, JSON.stringify({name: name}), {headers: this.headers})
-      .toPromise()
-      .then(res => res.json().data as Wish)
-      .catch(this.handleError);*/
+    return newWish;
+  }
+
+  create(name: string): Promise<Wish[]> {
+    return new Promise<Wish[]>((resolve, reject) => {
+      switch (this.mode) {
+        case Constants.Modes.Guest:
+          this.generateWish(name);
+          localStorage.setItem("wishes", JSON.stringify(this.wishes));
+          resolve();
+          break;
+
+        case Constants.Modes.User:
+          /*    return this.http
+  .post(this.wishesUrl, JSON.stringify({name: name}), {headers: this.headers})
+  .toPromise()
+  .then(res => res.json().data as Wish)
+  .catch(this.handleError);*/
+          break;
+      }
+    });
+  }
+
+  toggleStatus(id: string): Promise<Wish[]> {
+    return new Promise<Wish[]>((resolve, reject) => {
+      switch (this.mode) {
+        case Constants.Modes.Guest:
+          for (let i = 0; i < this.wishes.length; i++){
+            let wish = this.wishes[i];
+            if (wish.id === id) {
+              wish.done = !wish.done;
+            }
+          }
+          localStorage.setItem("wishes", JSON.stringify(this.wishes));
+          resolve(this.wishes);
+          break;
+
+        case Constants.Modes.User:
+          break;
+      }
+    });
   }
 
   delete(wish: Wish): Promise<void> {
@@ -101,8 +132,15 @@ export class WishService {
           break;
       }
     });
+  }
 
-
+  update(wish: Wish): Promise<Wish> {
+    const url = `${this.wishesUrl}/${wish.id}`;
+    return this.http
+      .put(url, JSON.stringify(wish), {headers: this.headers})
+      .toPromise()
+      .then(() => wish);
+      //.catch(this.handleError);
   }
 
 /*  private handleError(error: any): Promise<any> {

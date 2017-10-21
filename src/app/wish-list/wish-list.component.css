@@ -9,7 +9,6 @@
   /*width: 15em;*/
 }
 .wishes li {
-  cursor: pointer;
   position: relative;
   left: 0;
   background-color: #EEE;
@@ -21,7 +20,7 @@
 .wishes li:hover {
   color: #607D8B;
   background-color: #DDD;
-  left: .1em;
+  /*left: .1em;*/
 }
 .wishes li.selected:hover {
   background-color: #BBD8DC !important;
@@ -47,6 +46,8 @@
   height: 1.8em;
   margin-right: .8em;
   border-radius: 4px 0 0 4px;
+  min-width: 15px;
+  text-align: center;
 }
 button {
   font-family: Arial;
@@ -60,10 +61,21 @@ button {
 button:hover {
   background-color: #cfd8dc;
 }
-button.delete {
+button.right {
   float:right;
   margin-top: 2px;
-  margin-right: .8em;
+  margin-right: .4em;
   background-color: gray !important;
   color:white;
+}
+button.right:first-child {
+  margin-right: .8em;
+}
+.done-wrapper{
+  width: 18px;
+  margin-left: -3px;
+  display: inline-block;
+}
+.wish{
+  cursor: pointer;
 }
