@@ -11,6 +11,7 @@ import { WishDetailComponent }      from './wish-detail/wish-detail.component';
 import { WishListComponent }        from './wish-list/wish-list.component';
 import { WishService }         from './services/wish.service';
 import { DataMockService } from "./api/data-mock.service";
+import { LS } from './services/local-storage.service';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { DataMockService } from "./api/data-mock.service";
   ],
   providers: [
     WishService,
+    LS,
     DataMockService
   ],
   bootstrap: [ AppComponent ]

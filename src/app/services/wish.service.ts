@@ -7,6 +7,7 @@ import 'rxjs/add/operator/toPromise';
 import { Wish } from '../entities/wish';
 import { Constants } from './constants.service';
 import { DataMockService } from '../api/data-mock.service';
+import { LS } from '../services/local-storage.service';
 
 @Injectable()
 export class WishService {
@@ -19,15 +20,28 @@ export class WishService {
 
   constructor(
     private http: Http,
-    private dataMockService: DataMockService
+    private dataMockService: DataMockService,
+    private ls: LS
   ) { }
+
+  loadDataMock(): void {
+    this.ls.clear();
+    this.dataMockService.getWishes();
+  }
 
   getWishes(): Promise<Wish[]> {
     return new Promise<Wish[]>((resolve, reject) => {
       switch (this.mode) {
         case Constants.Modes.Guest:
-          let wishesString = localStorage.getItem("wishes");
-          this.wishes = wishesString ? JSON.parse(wishesString) : this.dataMockService.getWishes();
+
+          let wishesString = this.ls.getWishListString();
+
+          if (!wishesString){
+            this.loadDataMock();
+            wishesString = this.ls.getWishListString();
+          }
+
+          this.wishes = this.ls.parseWishListString(wishesString);
           resolve(this.wishes || []);
           break;
 
