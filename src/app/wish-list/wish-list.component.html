@@ -21,7 +21,7 @@
       <i *ngIf="!wish.done" class="fa fa-square-o" aria-hidden="true"></i>
       <i *ngIf="wish.done" class="fa fa-check-square-o" aria-hidden="true"></i>
     </span>
-
+    {{wish.name}}
 <!--    <span *ng-if="!wish.edit" (click)="editName(wish)">{{wish.name}}</span>
     <form *ng-if="wish.edit" (ngSubmit)="add(wishName.value); wish.nameName.value=''" #heroForm="ngForm">
       <label>New wish:</label> <input #wishName/>
