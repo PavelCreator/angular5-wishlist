@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+//import { Headers, Http } from '@angular/http';
 import { UUID } from 'angular2-uuid';
 
 import 'rxjs/add/operator/toPromise';
@@ -11,15 +11,15 @@ import { LS } from '../services/local-storage.service';
 
 @Injectable()
 export class WishService {
-  private wishesUrl = 'api/heroes';  // URL to web api
-  private headers = new Headers({'Content-Type': 'application/json'});
+  //private wishesUrl = 'api/heroes';  // URL to web api
+  //private headers = new Headers({'Content-Type': 'application/json'});
   private mode = Constants.Modes.Guest;
   private wishes: Wish[] = [];
 
   //TODO check auth and switch mode to 'user' if user authenticated
 
   constructor(
-    private http: Http,
+    //private http: Http,
     private dataMockService: DataMockService,
     private ls: LS
   ) { }
@@ -46,13 +46,13 @@ export class WishService {
           break;
 
         case Constants.Modes.User:
-          this.http.get(this.wishesUrl)
+/*          this.http.get(this.wishesUrl)
             .toPromise()
             .then(response => {
               this.wishes = response.json().data as Wish[];
               console.log("db wishes =", this.wishes);
               resolve(this.wishes);
-            });
+            });*/
           break;
       }
     });
@@ -62,9 +62,9 @@ export class WishService {
     return new Promise<Wish>((resolve, reject) => {
       switch (this.mode) {
         case Constants.Modes.Guest:
-          if (this.wishes){
-            let wish = this.wishes.find(wish => wish.id === id);
-            resolve(wish);
+          let wishString = this.ls.getWishString(id);
+          if (wishString){
+            resolve(this.ls.parseWishString(wishString));
           }
           break;
 
@@ -83,7 +83,6 @@ export class WishService {
       name: name,
       done: false
     };
-    console.log("newWish =", newWish);
     this.wishes.push(newWish);
     return newWish;
   }
@@ -92,8 +91,8 @@ export class WishService {
     return new Promise<Wish[]>((resolve, reject) => {
       switch (this.mode) {
         case Constants.Modes.Guest:
-          this.generateWish(name);
-          localStorage.setItem("wishes", JSON.stringify(this.wishes));
+          let newWish = this.generateWish(name);
+          this.ls.addWish(newWish);
           resolve();
           break;
 
@@ -116,9 +115,10 @@ export class WishService {
             let wish = this.wishes[i];
             if (wish.id === id) {
               wish.done = !wish.done;
+              this.ls.updateWish(wish);
+              break;
             }
           }
-          localStorage.setItem("wishes", JSON.stringify(this.wishes));
           resolve(this.wishes);
           break;
 
@@ -130,11 +130,12 @@ export class WishService {
 
   delete(wish: Wish): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      this.wishes = this.wishes.filter(w => w !== wish);
       switch (this.mode) {
         case Constants.Modes.Guest:
-          localStorage.setItem("wishes", JSON.stringify(this.wishes));
-          resolve(null);
+
+          this.wishes = this.wishes.filter(w => w !== wish);
+          this.ls.deleteWish(wish.id);
+          resolve();
           break;
 
         case Constants.Modes.User:
@@ -148,21 +149,21 @@ export class WishService {
     });
   }
 
-  update(wish: Wish): Promise<Wish> {
+/*  update(wish: Wish): Promise<Wish> {
     const url = `${this.wishesUrl}/${wish.id}`;
     return this.http
       .put(url, JSON.stringify(wish), {headers: this.headers})
       .toPromise()
       .then(() => wish);
       //.catch(this.handleError);
-  }
+  }*/
 
   updateList(wishes: Wish[]): Promise<any> {
     return new Promise<any>((resolve, reject) => {
       switch (this.mode) {
         case Constants.Modes.Guest:
           this.wishes = wishes;
-          localStorage.setItem("wishes", JSON.stringify(this.wishes));
+          this.ls.sortList(wishes);
           resolve();
           break;
 
@@ -177,29 +178,6 @@ export class WishService {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
   }*/
-
-  /*private wishes: Wish[] = [
-    {id: 1, name: 'Забросить ботинки на провода', done: true},
-    {id: 2, name: 'Прокатиться на крыше транспортного средства', done: true},
-    {id: 3, name: 'Сделать настоящее тату', done: true},
-    {id: 4, name: 'Научиться прыгать на скейте', done: false},
-    {id: 5, name: 'Сыграть в казино', done: false},
-    {id: 6, name: 'Сняться в рекламе', done: true},
-    {id: 7, name: 'Три дня не разговаривать', done: true},
-    {id: 8, name: 'Посмотреть «Звёздные войны»', done: true},
-    {id: 9, name: 'Пройти какую-нибудь игру', done: true},
-    {id: 10, name: 'Посмотреть дом, в котором провёл детство', done: true},
-    {id: 11, name: 'Придумать песню на укулеле', done: false},
-    {id: 12, name: 'Научиться ездить на велосипеде без рук', done: true},
-    {id: 13, name: 'Принять участие в спортивных соревнованиях', done: false},
-    {id: 14, name: 'Принять участие в разработке приложения', done: false},
-    {id: 15, name: 'Прокатиться на мотоцикле', done: true},
-    {id: 16, name: 'Пройтись по улице с бумбоксом', done: false},
-    {id: 17, name: 'Прокатиться на сноуборде', done: true},
-    {id: 18, name: 'Освоить музыкальную программу и записать бит', done: false},
-    {id: 19, name: 'Научиться вязать', done: false},
-    {id: 20, name: 'Не брить бороду полгода', done: true}
-  ];*/
 
 }
 
