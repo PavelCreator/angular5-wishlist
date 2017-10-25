@@ -1,10 +1,28 @@
 <div *ngIf="wish">
-  <h2>Wish details</h2>
+  <h2>
+    <span *ngIf="!editMode">{{wish.name}}</span>
+    <span *ngIf="editMode"><input class="form-control" name="name" [(ngModel)]="wish.name" placeholder="name"/></span>
+  </h2>
+  <table class="table table-bordered">
+    <tr>
+      <td>
+          Name:
+      </td>
+      <td>{{wish.name}}</td>
+    </tr>
+    <tr>
+      <td>Status:</td>
+      <td>
+        <span *ngIf="wish.done">Done</span>
+        <span *ngIf="!wish.done">Not done</span>
+      </td>
+    </tr>
+  </table>
   <div>
-    <label>Name:</label>
-    <input [(ngModel)]="wish.name" placeholder="name"/>
+
+    <button class="btn btn-default" (click)="goBack()">Back to list</button>
+    <button *ngIf="!wish.done" class="btn btn-success" (click)="toggleStatus(wish.id)">Done</button>
+    <button *ngIf="wish.done" class="btn btn-danger" (click)="toggleStatus(wish.id)">Not done</button>
+    <button class="btn btn-danger float-right" (click)="delete()">Delete</button>
   </div>
-  <div><label>Status: </label>{{wish.done}}</div>
-  <button (click)="goBack()">Back</button>
-  <button (click)="update()">Save</button>
 </div>
