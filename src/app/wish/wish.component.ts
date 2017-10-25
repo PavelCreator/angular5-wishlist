@@ -2,17 +2,17 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params }   from '@angular/router';
 import { Location }                 from '@angular/common';
 
-import { WishService } from '../services/wish.service';
+import { WishService } from './wish.service';
 import { Wish } from '../entities/wish';
 import 'rxjs/add/operator/switchMap';
 
 @Component({
-  selector: 'wish-detail',
-  templateUrl: './wish-detail.component.html',
-  styleUrls: [ './wish-detail.component.css' ],
+  selector: 'wish',
+  templateUrl: './wish.component.html',
+  styleUrls: [ './wish.component.css' ],
 })
 
-export class WishDetailComponent implements OnInit {
+export class WishComponent implements OnInit {
   @Input() wish: Wish;
 
   constructor(private wishService: WishService,
@@ -30,7 +30,7 @@ export class WishDetailComponent implements OnInit {
     this.location.back();
   }
 
-  save(): void {
+  update(): void {
     this.wishService.update(this.wish)
       .then(() => this.goBack());
   }

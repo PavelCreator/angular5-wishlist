@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Wish} from '../entities/wish';
-import {WishService} from '../services/wish.service';
+import {WishListService} from './wish-list.service';
 import {Router} from '@angular/router';
 
 @Component({
@@ -14,11 +14,11 @@ export class WishListComponent implements OnInit {
   wishes: Wish[];
 
   constructor(private router: Router,
-              private wishService: WishService) {
+              private wishListService: WishListService) {
   }
 
   getWishes(): void {
-    this.wishService.getWishes()
+    this.wishListService.getWishes()
       .then(wishes => this.wishes = wishes);
   }
 
@@ -30,8 +30,8 @@ export class WishListComponent implements OnInit {
     this.router.navigate(['/detail', id]);
   }
 
-  toggleStatus(wishId: string) {
-    this.wishService.toggleStatus(wishId)
+  toggleWishStatus(wishId: string) {
+    this.wishListService.toggleWishStatus(wishId)
       .then((wishes) => this.wishes = wishes);
   }
 
@@ -40,18 +40,13 @@ export class WishListComponent implements OnInit {
     if (!name) {
       return;
     }
-    this.wishService.create(name)
-      .then(
-        /*wish => {
-												this.wishes.push(wish);
-												this.selectedWish = null;
-										}*/
-      );
+    this.wishListService.createWish(name)
+      .then();
   }
 
-  delete(wish: Wish): void {
-    this.wishService
-      .delete(wish)
+  deleteWish(wish: Wish): void {
+    this.wishListService
+      .deleteWish(wish)
       .then(
         () => {
           this.wishes = this.wishes.filter(h => h !== wish);
@@ -60,7 +55,7 @@ export class WishListComponent implements OnInit {
   }
 
   updateList(): void {
-    this.wishService.updateList(this.wishes)
+    this.wishListService.updateList(this.wishes)
       .catch((wishes) => this.wishes = wishes);
   }
 }

@@ -11,7 +11,7 @@
   <li *ngFor="let wish of wishes; let i = index"
       [class.selected]="wish === selectedWish"
       [class.done]="wish.done"
-      (click)="toggleStatus(wish.id)"
+      (click)="toggleWishStatus(wish.id)"
       class="wish"
       dnd-sortable [sortableIndex]="i"
       (onDropSuccess)="updateList()"
@@ -30,7 +30,7 @@
       </button>
     </form>-->
 
-    <button class="right" (click)="delete(wish); $event.stopPropagation()">
+    <button class="right" (click)="deleteWish(wish); $event.stopPropagation()">
       <i class="fa fa-times" aria-hidden="true"></i>
     </button>
     <button class="right" (click)="gotoDetail(wish.id); $event.stopPropagation()">
