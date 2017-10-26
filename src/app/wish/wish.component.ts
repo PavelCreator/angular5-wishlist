@@ -14,6 +14,7 @@ import 'rxjs/add/operator/switchMap';
 
 export class WishComponent implements OnInit {
   @Input() wish: Wish;
+  @Input() editNameMode: boolean = false;
 
   constructor(private wishService: WishService,
               private route: ActivatedRoute,
@@ -34,4 +35,15 @@ export class WishComponent implements OnInit {
     this.wishService.update(this.wish)
       .then(() => this.goBack());
   }
+
+  saveChangedName(){
+    this.wishService.changeField(this.wish, 'name', this.wish.name)
+      .then(() => this.editNameMode = false);
+  }
+
+  toggleStatus() {
+    this.wishService.changeField(this.wish, 'done', !this.wish.done)
+      .then(() => this.wish.done = !this.wish.done);
+  }
+
 }

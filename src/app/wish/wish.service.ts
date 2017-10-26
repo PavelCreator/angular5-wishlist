@@ -13,7 +13,6 @@ export class WishService {
   private wishes: Wish[] = [];
 
   constructor(
-    //private http: Http,
     private dataMockService: DataMockService,
     private ls: LS
   ) { }
@@ -34,24 +33,14 @@ export class WishService {
     });
   }
 
-  toggleStatus(id: string): Promise<Wish[]> {
-    console.log('toggleStatus');
-    return new Promise<Wish[]>((resolve, reject) => {
+  changeField(wish: Wish, field: string, value: any): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
       switch (this.mode) {
         case Constants.Modes.Guest:
-          console.log("this.wishes =", this.wishes);
-          for (let i = 0; i < this.wishes.length; i++){
-            let wish = this.wishes[i];
-            console.log("wish =", wish);
-            if (wish.id === id) {
-              console.log("1");
-              wish.done = !wish.done;
-              console.log("wish =", wish);
-              this.ls.updateWish(wish);
-              break;
-            }
-          }
-          resolve(this.wishes);
+          let _wish = this.ls.getWish(wish.id);
+          _wish[field] = value;
+          this.ls.updateWish(_wish);
+          resolve();
           break;
 
         case Constants.Modes.User:

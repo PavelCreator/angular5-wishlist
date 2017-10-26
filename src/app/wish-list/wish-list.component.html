@@ -1,4 +1,8 @@
-<h2>Wannado</h2>
+<nav>
+  <a routerLink="/list" routerLinkActive="active">Wish list</a>
+</nav>
+
+<h2>Wish list <i class="fa fa-pencil-square-o" aria-hidden="true"></i></h2>
 <div>
   <form (ngSubmit)="add(wishName.value); wishName.value=''" #heroForm="ngForm">
     <label>New wish:</label> <input #wishName/>

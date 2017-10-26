@@ -1,7 +1,18 @@
 <div *ngIf="wish">
   <h2>
-    <span *ngIf="!editMode">{{wish.name}}</span>
-    <span *ngIf="editMode"><input class="form-control" name="name" [(ngModel)]="wish.name" placeholder="name"/></span>
+    <span *ngIf="!editNameMode">{{wish.name}}
+      <i (click)="editNameMode = true" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+    </span>
+    <span *ngIf="editNameMode">
+      <form (ngSubmit)="saveChangedName()" #heroForm="ngForm">
+        <div class="input-group">
+          <input class="form-control" name="name" [(ngModel)]="wish.name" placeholder="name"/>
+          <span class="input-group-btn">
+            <button type="submit" class="btn btn-success">Done</button>
+          </span>
+        </div>
+      </form>
+    </span>
   </h2>
   <table class="table table-bordered">
     <tr>
@@ -19,10 +30,9 @@
     </tr>
   </table>
   <div>
-
     <button class="btn btn-default" (click)="goBack()">Back to list</button>
-    <button *ngIf="!wish.done" class="btn btn-success" (click)="toggleStatus(wish.id)">Done</button>
-    <button *ngIf="wish.done" class="btn btn-danger" (click)="toggleStatus(wish.id)">Not done</button>
+    <button *ngIf="!wish.done" class="btn btn-success" (click)="toggleStatus()">Done</button>
+    <button *ngIf="wish.done" class="btn btn-danger" (click)="toggleStatus()">Not done</button>
     <button class="btn btn-danger float-right" (click)="delete()">Delete</button>
   </div>
 </div>
