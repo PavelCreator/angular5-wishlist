@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Wish} from '../entities/wish';
+import {WishService} from '../wish/wish.service';
 import {WishListService} from './wish-list.service';
 import {Router} from '@angular/router';
 
@@ -12,9 +13,11 @@ import {Router} from '@angular/router';
 export class WishListComponent implements OnInit {
   title = 'Wannado';
   wishes: Wish[];
+  private editWishMode = false;
 
   constructor(private router: Router,
-              private wishListService: WishListService) {
+              private wishListService: WishListService,
+              private wishService: WishService) {
   }
 
   getWishes(): void {
@@ -31,6 +34,9 @@ export class WishListComponent implements OnInit {
   }
 
   toggleWishStatus(wishId: string) {
+    if (this.editWishMode){
+      return;
+    }
     this.wishListService.toggleWishStatus(wishId)
       .then((wishes) => this.wishes = wishes);
   }
@@ -50,6 +56,32 @@ export class WishListComponent implements OnInit {
       .then(
         () => {
           this.wishes = this.wishes.filter(h => h !== wish);
+        }
+      );
+  }
+
+  editWishNameStart(wish: Wish, $event: Event): void {
+    $event.stopPropagation();
+    this.editWishMode = true;
+    wish.edit = true;
+  }
+
+  editWishNameComplete(wish: Wish, $event: any): void {
+    console.log("$event =", $event);
+    if ($event) {
+      $event.stopPropagation();
+    }
+    this.wishService
+      .changeField(wish, 'name', wish.name)
+      .then(
+        () => {
+          for (let i = 0; i < this.wishes.length; i++) {
+            let _wish = this.wishes[i];
+            if (_wish.id === wish.id) {
+              _wish.edit = false;
+            }
+          }
+          this.editWishMode = false;
         }
       );
   }

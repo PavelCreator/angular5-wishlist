@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule }    from '@angular/http';
 import { DndModule }     from 'ng2-dnd';
+import { ClickOutside }  from './directives/click-outside.directive';
 
 import { AppRoutingModule }  from './routing/routing.module';
 
@@ -28,7 +29,8 @@ import { LS } from './services/local-storage.service';
   declarations: [
     AppComponent,
     WishComponent,
-    WishListComponent
+    WishListComponent,
+    ClickOutside
   ],
   providers: [
     LS,

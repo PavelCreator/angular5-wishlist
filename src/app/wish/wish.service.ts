@@ -34,6 +34,7 @@ export class WishService {
   }
 
   changeField(wish: Wish, field: string, value: any): Promise<void> {
+    console.log("changeField  field =", field);
     return new Promise<void>((resolve, reject) => {
       switch (this.mode) {
         case Constants.Modes.Guest:

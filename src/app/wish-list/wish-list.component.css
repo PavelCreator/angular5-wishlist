@@ -22,14 +22,6 @@
   border: 2px solid transparent;
 }
 
-.button-wrapper {
-  display: inline-block;
-  float: right;
-  position: relative;
-  top: -3px;
-  right: 0;
-}
-
 .wish:hover {
   color: #607D8B;
   background-color: #DDD;
@@ -79,4 +71,25 @@
 
 .drag-handler {
   cursor: move;
+}
+
+.wish-name{
+  cursor: text;
+  border: 2px solid transparent;
+}
+.wish-name:hover{
+  background-color: #dffffe;
+  border: 2px dotted #41dcff;
+}
+.edit-wish-wrapper{
+  position: relative;
+  top: -2px;
+}
+
+.button-wrapper {
+  display: inline-block;
+  float: right;
+  position: relative;
+  top: -5px;
+  right: 0;
 }

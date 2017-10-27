@@ -67,7 +67,8 @@ export class WishListService {
     let newWish: Wish = {
       id: UUID.UUID(),
       name: name,
-      done: false
+      done: false,
+      edit: false
     };
     this.wishes.push(newWish);
     return newWish;
@@ -117,6 +118,22 @@ export class WishListService {
         case Constants.Modes.Guest:
           this.wishes = this.wishes.filter(w => w !== wish);
           this.ls.deleteWish(wish.id);
+          resolve();
+          break;
+
+        case Constants.Modes.User:
+          break;
+      }
+    });
+  }
+
+  changeWishField(wish: Wish, field: string, value: any): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      switch (this.mode) {
+        case Constants.Modes.Guest:
+          let _wish = this.ls.getWish(wish.id);
+          _wish[field] = value;
+          this.ls.updateWish(_wish);
           resolve();
           break;
 

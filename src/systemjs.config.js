@@ -26,7 +26,8 @@
       // other libraries
       'rxjs':                      'npm:rxjs',
       'angular2-uuid':             'npm:angular2-uuid/index.js',
-      'ng2-dnd': 'node_modules/ng2-dnd/bundles/index.umd.js'
+      'ng2-dnd': 'node_modules/ng2-dnd/bundles/index.umd.js',
+      'angular2-click-outside': 'node_modules/angular2-click-outside/clickOutside.directive.js'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {

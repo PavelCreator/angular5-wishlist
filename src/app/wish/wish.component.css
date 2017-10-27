@@ -10,3 +10,8 @@ input {
   font-size: 1em;
   padding-left: .4em;
 }
+.table-label{
+  width: 100px;
+  font-weight: bold;
+  color: #607D8B;
+}

@@ -1,3 +1,7 @@
+<nav>
+  <a routerLink="/list" routerLinkActive="active">Wish list</a>
+</nav>
+
 <div *ngIf="wish">
   <h2>
     <span *ngIf="!editNameMode">{{wish.name}}
@@ -16,13 +20,11 @@
   </h2>
   <table class="table table-bordered">
     <tr>
-      <td>
-          Name:
-      </td>
+      <td class="table-label">Name:</td>
       <td>{{wish.name}}</td>
     </tr>
     <tr>
-      <td>Status:</td>
+      <td class="table-label">Status:</td>
       <td>
         <span *ngIf="wish.done">Done</span>
         <span *ngIf="!wish.done">Not done</span>
@@ -31,8 +33,8 @@
   </table>
   <div>
     <button class="btn btn-default" (click)="goBack()">Back to list</button>
-    <button *ngIf="!wish.done" class="btn btn-success" (click)="toggleStatus()">Done</button>
-    <button *ngIf="wish.done" class="btn btn-danger" (click)="toggleStatus()">Not done</button>
+    <button *ngIf="!wish.done" class="btn btn-success" (click)="toggleStatus()">Set "Done"</button>
+    <button *ngIf="wish.done" class="btn btn-danger" (click)="toggleStatus()">Set "Not done"</button>
     <button class="btn btn-danger float-right" (click)="delete()">Delete</button>
   </div>
 </div>

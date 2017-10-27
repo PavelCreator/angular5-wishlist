@@ -34,6 +34,7 @@ export class LS {
   }
 
   updateWish(wish: Wish) {
+    console.log("updateWish");
     localStorage.setItem(`W|${wish.id}`, JSON.stringify(wish));
   }
 
