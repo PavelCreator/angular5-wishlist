@@ -1,21 +1,21 @@
-import { NgModule }      from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }   from '@angular/forms';
-import { HttpModule }    from '@angular/http';
-import { DndModule }     from 'ng2-dnd';
-import { ClickOutside }  from './directives/click-outside.directive';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { DndModule } from 'ng2-dnd';
+// import { ClickOutside } from './directives/click-outside.directive';
 
-import { AppRoutingModule }  from './routing/routing.module';
+import { AppRoutingModule} from './routing/routing.module';
 
-import { AppComponent }        from './app.component';
+import { AppComponent} from './app.component';
 
-import { WishComponent }      from './wish/wish.component';
-import { WishService }         from './wish/wish.service';
+import { WishComponent } from './wish/wish.component';
+import { WishService } from './wish/wish.service';
 
-import { WishListComponent }        from './wish-list/wish-list.component';
-import { WishListService }         from './wish-list/wish-list.service';
+import { WishListComponent } from './wish-list/wish-list.component';
+import { WishListService } from './wish-list/wish-list.service';
 
-import { DataMockService } from "./api/data-mock.service";
+import { DataMockService } from './api/data-mock.service';
 import { LS } from './services/local-storage.service';
 
 @NgModule({
@@ -29,8 +29,8 @@ import { LS } from './services/local-storage.service';
   declarations: [
     AppComponent,
     WishComponent,
-    WishListComponent,
-    ClickOutside
+    WishListComponent/*,
+    ClickOutside*/
   ],
   providers: [
     LS,
@@ -39,7 +39,8 @@ import { LS } from './services/local-storage.service';
     WishService,
     WishListService
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [AppComponent]
 })
 
-export class AppModule { }
+export class AppModule {
+}

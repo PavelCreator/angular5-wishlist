@@ -4,7 +4,7 @@
 
 <div *ngIf="wish">
   <h2>
-    <span *ngIf="!editNameMode">{{wish.name}}
+    <span *ngIf="!editNameMode">{{ wish.name }}
       <i (click)="editNameMode = true" class="fa fa-pencil-square-o" aria-hidden="true"></i>
     </span>
     <span *ngIf="editNameMode">
@@ -21,7 +21,7 @@
   <table class="table table-bordered">
     <tr>
       <td class="table-label">Name:</td>
-      <td>{{wish.name}}</td>
+      <td>{{ wish.name }}</td>
     </tr>
     <tr>
       <td class="table-label">Status:</td>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import 'rxjs/add/operator/toPromise';
 
-import { Wish } from '../entities/wish';
+import { Wish } from '../interfaces/wish';
 import { Constants } from '../services/constants.service';
 import { DataMockService } from '../api/data-mock.service';
 import { LS } from '../services/local-storage.service';
@@ -14,7 +14,7 @@ export class WishListService {
   private wishes: Wish[] = [];
 
   constructor(
-    //private http: Http,
+    // private http: Http,
     private dataMock: DataMockService,
     private ls: LS
   ) { }
@@ -32,7 +32,7 @@ export class WishListService {
 
           let wishesString = this.ls.getWishListString();
 
-          if (!wishesString){
+          if (!wishesString) {
             this.loadDataMock();
             wishesString = this.ls.getWishListString();
           }
@@ -64,7 +64,7 @@ export class WishListService {
 
   /*Work with wishes on wishList page*/
   generateWish(name: string) {
-    let newWish: Wish = {
+    const newWish: Wish = {
       id: UUID.UUID(),
       name: name,
       done: false,
@@ -78,7 +78,7 @@ export class WishListService {
     return new Promise<Wish[]>((resolve, reject) => {
       switch (this.mode) {
         case Constants.Modes.Guest:
-          let newWish = this.generateWish(name);
+          const newWish = this.generateWish(name);
           this.ls.addWish(newWish);
           resolve();
           break;
@@ -94,9 +94,9 @@ export class WishListService {
     return new Promise<Wish[]>((resolve, reject) => {
       switch (this.mode) {
         case Constants.Modes.Guest:
-          for (let i = 0; i < this.wishes.length; i++){
-            let wish = this.wishes[i];
-            console.log("wish =", wish);
+          for (let i = 0; i < this.wishes.length; i++) {
+            const wish = this.wishes[i];
+            console.log('wish =', wish);
             if (wish.id === id) {
               wish.done = !wish.done;
               this.ls.updateWish(wish);
@@ -131,7 +131,7 @@ export class WishListService {
     return new Promise<void>((resolve, reject) => {
       switch (this.mode) {
         case Constants.Modes.Guest:
-          let _wish = this.ls.getWish(wish.id);
+          const _wish = this.ls.getWish(wish.id);
           _wish[field] = value;
           this.ls.updateWish(_wish);
           resolve();

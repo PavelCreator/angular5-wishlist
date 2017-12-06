@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import 'rxjs/add/operator/toPromise';
 
-import { Wish } from '../entities/wish';
+import { Wish } from '../interfaces/wish';
 import { Constants } from '../services/constants.service';
 import { DataMockService } from '../api/data-mock.service';
 import { LS } from '../services/local-storage.service';
@@ -21,8 +21,8 @@ export class WishService {
     return new Promise<Wish>((resolve, reject) => {
       switch (this.mode) {
         case Constants.Modes.Guest:
-          let wishString = this.ls.getWishString(id);
-          if (wishString){
+          const wishString = this.ls.getWishString(id);
+          if (wishString) {
             resolve(this.ls.parseWishString(wishString));
           }
           break;
@@ -34,11 +34,11 @@ export class WishService {
   }
 
   changeField(wish: Wish, field: string, value: any): Promise<void> {
-    console.log("changeField  field =", field);
+    console.log('changeField  field =', field);
     return new Promise<void>((resolve, reject) => {
       switch (this.mode) {
         case Constants.Modes.Guest:
-          let _wish = this.ls.getWish(wish.id);
+          const _wish = this.ls.getWish(wish.id);
           _wish[field] = value;
           this.ls.updateWish(_wish);
           resolve();
@@ -67,7 +67,7 @@ export class WishService {
   }
 
   update(updatedWish: Wish): Promise<Wish> {
-    //const url = `${this.wishesUrl}/${wish.id}`;
+    // const url = `${this.wishesUrl}/${wish.id}`;
     return new Promise<Wish>((resolve, reject) => {
       switch (this.mode) {
         case Constants.Modes.Guest:

@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {Wish} from '../entities/wish';
+import { Injectable } from '@angular/core';
+import { Wish } from '../interfaces/wish';
 
 @Injectable()
 export class LS {
@@ -17,7 +17,7 @@ export class LS {
   }
 
   getWishString(id: string): string {
-    let wishString = localStorage.getItem(`W|${id}`);
+    const wishString = localStorage.getItem(`W|${id}`);
     if (wishString) {
       return wishString;
     } else {
@@ -34,32 +34,32 @@ export class LS {
   }
 
   updateWish(wish: Wish) {
-    console.log("updateWish");
+    console.log('updateWish');
     localStorage.setItem(`W|${wish.id}`, JSON.stringify(wish));
   }
 
   addWish(newWish: Wish) {
     this.updateWish(newWish);
-    let wishList: Array<string> = this.getWishList();
+    const wishList: Array<string> = this.getWishList();
     wishList.push(newWish.id);
     this.setWishList(wishList);
   }
 
   deleteWish(id: string) {
     localStorage.removeItem(`W|${id}`);
-    let wishList: Array<string> = this.getWishList();
-    let index = wishList.indexOf(id);
+    const wishList: Array<string> = this.getWishList();
+    const index = wishList.indexOf(id);
     wishList.splice(index, 1);
     this.setWishList(wishList);
   }
 
   /*Wish list*/
   setWishList(wishList: Array<string>) {
-    localStorage.setItem("wishList", JSON.stringify(wishList));
+    localStorage.setItem('wishList', JSON.stringify(wishList));
   }
 
   getWishListString(): string {
-    let wishListString = localStorage.getItem(`wishList`);
+    const wishListString = localStorage.getItem(`wishList`);
     if (wishListString) {
       return wishListString;
     } else {
@@ -72,11 +72,11 @@ export class LS {
   }
 
   parseWishListString(wishListString: string): Wish[] {
-    let wishList: Array<string> = JSON.parse(wishListString);
-    let wishListWithData: Wish[] = [];
+    const wishList: Array<string> = JSON.parse(wishListString);
+    const wishListWithData: Wish[] = [];
 
     wishList.forEach(function (id: String) {
-      let wish = this.getWish(id);
+      const wish = this.getWish(id);
       if (wish) {
         wishListWithData.push(wish);
       }
@@ -85,8 +85,8 @@ export class LS {
   }
 
   sortList(wishes: Wish[]) {
-    let wishList: Array<string> = [];
-    console.log("wishes =", wishes);
+    const wishList: Array<string> = [];
+    console.log('wishes =', wishes);
     wishes.forEach(function (item: Wish) {
       wishList.push(item.id);
     });

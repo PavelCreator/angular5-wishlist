@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+
 @Component({
-  selector: 'my-app',
+  selector: 'wl-app',
   styleUrls: ['./app.component.css'],
   template: `
-    <h1>{{title}}</h1>
+    <h1>{{ title }}</h1>
     <router-outlet></router-outlet>
   `
 })

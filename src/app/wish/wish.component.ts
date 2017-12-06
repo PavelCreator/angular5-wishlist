@@ -1,20 +1,20 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Params }   from '@angular/router';
-import { Location }                 from '@angular/common';
+import { ActivatedRoute, Params } from '@angular/router';
+import { Location} from '@angular/common';
 
 import { WishService } from './wish.service';
-import { Wish } from '../entities/wish';
+import { Wish } from '../interfaces/wish';
 import 'rxjs/add/operator/switchMap';
 
 @Component({
-  selector: 'wish',
+  selector: 'wl-wish',
   templateUrl: './wish.component.html',
-  styleUrls: [ './wish.component.css' ],
+  styleUrls: ['./wish.component.css'],
 })
 
 export class WishComponent implements OnInit {
   @Input() wish: Wish;
-  @Input() editNameMode: boolean = false;
+  @Input() editNameMode: Boolean = false;
 
   constructor(private wishService: WishService,
               private route: ActivatedRoute,
@@ -36,7 +36,7 @@ export class WishComponent implements OnInit {
       .then(() => this.goBack());
   }
 
-  saveChangedName(){
+  saveChangedName() {
     this.wishService.changeField(this.wish, 'name', this.wish.name)
       .then(() => this.editNameMode = false);
   }

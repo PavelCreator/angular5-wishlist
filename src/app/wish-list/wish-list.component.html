@@ -20,7 +20,7 @@
       dnd-sortable [sortableIndex]="i"
       (onDropSuccess)="updateList()"
   >
-    <span class="badge">{{i+1}}</span>
+    <span class="badge">{{ i + 1 }}</span>
     <span class="content-wrapper">
       <span class="done-wrapper">
         <i *ngIf="!wish.done" class="fa fa-square-o" aria-hidden="true"></i>
@@ -28,11 +28,11 @@
       </span>
       <span *ngIf="!wish.edit" class="wish-name"
             (click)="editWishNameStart(wish, $event)">
-        {{wish.name}}
+        {{ wish.name }}
       </span><!--(click)="console.log(1)" -->
       <form *ngIf="wish.edit" (ngSubmit)="editWishNameComplete(wish, $event)"
-            click-outside (clickOutside)="editWishNameComplete(wish, null)"
-            class="d-inline-block edit-wish-wrapper">
+
+            class="d-inline-block edit-wish-wrapper"><!--click-outside (clickOutside)="editWishNameComplete(wish, null)"-->
         <div class="input-group">
           <input class="form-control d-inline-block" name="name" [(ngModel)]="wish.name" placeholder="name"/>
           <span class="input-group-btn">

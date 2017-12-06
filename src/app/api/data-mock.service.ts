@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UUID } from 'angular2-uuid';
-import { Wish } from '../entities/wish';
+import { Wish } from '../interfaces/wish';
 import { LS } from '../services/local-storage.service';
 
 @Injectable()

@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {Wish} from '../entities/wish';
-import {WishService} from '../wish/wish.service';
-import {WishListService} from './wish-list.service';
-import {Router} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Wish } from '../interfaces/wish';
+import { WishService } from '../wish/wish.service';
+import { WishListService } from './wish-list.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'my-wishes',
+  selector: 'wl-wish-list',
   templateUrl: './wish-list.component.html',
   styleUrls: ['./wish-list.component.css']
 })
@@ -34,7 +34,7 @@ export class WishListComponent implements OnInit {
   }
 
   toggleWishStatus(wishId: string) {
-    if (this.editWishMode){
+    if (this.editWishMode) {
       return;
     }
     this.wishListService.toggleWishStatus(wishId)
@@ -67,7 +67,7 @@ export class WishListComponent implements OnInit {
   }
 
   editWishNameComplete(wish: Wish, $event: any): void {
-    console.log("$event =", $event);
+    console.log('$event =', $event);
     if ($event) {
       $event.stopPropagation();
     }
@@ -76,7 +76,7 @@ export class WishListComponent implements OnInit {
       .then(
         () => {
           for (let i = 0; i < this.wishes.length; i++) {
-            let _wish = this.wishes[i];
+            const _wish = this.wishes[i];
             if (_wish.id === wish.id) {
               _wish.edit = false;
             }
