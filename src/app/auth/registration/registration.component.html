@@ -1,0 +1,61 @@
+<form [formGroup]="regForm" (ngSubmit)="register()" class="">
+
+  <div class="form-group row justify-content-center">
+    <label for="username" class="col-2 col-form-label">Username:</label>
+    <input type="text" name="username" id="username" class="col-4 form-control" [formControl]="username">
+  </div>
+  <div class="row" [hidden]="username.valid || hideValidation">
+    <div class="col-6 offset-3 alert alert-danger">
+      <div [hidden]="!username.hasError('required')">Username is required</div>
+      <div [hidden]="!username.hasError('maxlength')">Maximum password length is 256 characters</div>
+    </div>
+  </div>
+
+  <div class="form-group row justify-content-center">
+    <label for="email" class="col-2 col-form-label">Email:</label>
+    <input type="text" name="email" id="email" class="col-4 form-control" [formControl]="email">
+  </div>
+  <div class="row" [hidden]="email.valid || hideValidation">
+    <div class="col-6 offset-3 alert alert-danger">
+      <div [hidden]="!email.hasError('required')">Email is required</div>
+      <div [hidden]="!email.hasError('email')">Email format is incorrect</div>
+      <div [hidden]="!email.hasError('maxlength')">Maximum password length is 256 characters</div>
+    </div>
+  </div>
+
+  <div class="form-group row justify-content-md-center">
+    <label for="password" class="col-2 col-form-label">Password</label>
+    <input type="password" name="password" id="password" class="col-4 form-control" [formControl]="password">
+  </div>
+  <div class="row" [hidden]="password.valid || hideValidation">
+    <div class="col-6 offset-3 alert alert-danger">
+      <div [hidden]="!password.hasError('required')">The password is required</div>
+      <div [hidden]="!password.hasError('minlength')">Minimum password length is 6 characters</div>
+      <div [hidden]="!password.hasError('maxlength')">Maximum password length is 256 characters</div>
+      <div [hidden]="!password.hasError('mismatchedPassword')">The passwords must match</div>
+    </div>
+  </div>
+
+  <div class="form-group row justify-content-md-center">
+    <label for="confirmPassword" class="col-2 col-form-label">Confirm password</label>
+    <input type="password" name="confirmPassword" id="confirmPassword" class="col-4 form-control" [formControl]="confirmPassword">
+  </div>
+  <div class="row" [hidden]="confirmPassword.valid || hideValidation">
+    <div class="col-6 offset-3 alert alert-danger">
+      <div [hidden]="!confirmPassword.hasError('required')">The confirm password is required</div>
+      <div [hidden]="!confirmPassword.hasError('mismatchedPassword')">The passwords must match</div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center">
+    <ul class="list-inline-item text-center col-6">
+      <li class="list-inline-item">
+        <button type="button" routerLink="/list" class="btn btn-default">Back to list</button>
+      </li>
+      <li class="list-inline-item">
+        <button type="submit" class="btn btn-primary">Register</button>
+      </li>
+    </ul>
+  </div>
+
+</form>

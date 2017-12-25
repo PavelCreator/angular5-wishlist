@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { LoginComponent } from '../auth/login.component';
-import { RegistrationComponent } from '../auth/registration.component';
+import { LoginComponent } from '../auth/login/login.component';
+import { RegistrationComponent } from '../auth/registration/registration.component';
 
 import { WishComponent } from '../wish/wish.component';
 import { WishListComponent } from '../wish-list/wish-list.component';

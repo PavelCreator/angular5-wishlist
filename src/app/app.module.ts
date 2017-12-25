@@ -9,8 +9,8 @@ import { AppRoutingModule} from './routing/routing.module';
 
 import { AppComponent} from './app.component';
 
-import { LoginComponent } from './auth/login.component';
-import { RegistrationComponent } from './auth/registration.component';
+import { LoginComponent } from './auth/login/login.component';
+import { RegistrationComponent } from './auth/registration/registration.component';
 import { AuthService } from './auth/auth.service';
 
 import { WishComponent } from './wish/wish.component';
