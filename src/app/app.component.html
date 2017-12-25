@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-sm">
+    <h1 class="title">{{ title }}</h1>
+    <p class="description">{{ description }}</p>
+  </div>
+  <div class="col-sm text-right">
+    <ul class="list-inline">
+      <li class="list-inline-item" *ngIf="!authenticated">
+        <button class="btn btn-primary" routerLink="/login" routerLinkActive="active">Login</button>
+      </li>
+      <li class="list-inline-item" *ngIf="!authenticated">
+        <button class="btn btn-primary" routerLink="/registration" routerLinkActive="active">Registration</button>
+      </li>
+      <li class="list-inline-item" *ngIf="authenticated">
+        <button class="btn btn-primary" routerLink="/logout" routerLinkActive="active">Logout</button>
+      </li>
+    </ul>
+  </div>
+</div>
+<nav>
+  <a routerLink="/list" routerLinkActive="active">Wish list</a>
+</nav>
+<router-outlet></router-outlet>

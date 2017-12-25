@@ -11,3 +11,13 @@ h2 {
 .pointer{
   cursor: pointer;
 }
+.title{
+  font-size: 37px;
+  color: #57738a;
+}
+.description {
+  position: relative;
+  top: -5px;
+  left: 1px;
+  color: #57738a;
+}

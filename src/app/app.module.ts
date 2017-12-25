@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { DndModule } from 'ng2-dnd';
 // import { ClickOutside } from './directives/click-outside.directive';
@@ -8,6 +8,10 @@ import { DndModule } from 'ng2-dnd';
 import { AppRoutingModule} from './routing/routing.module';
 
 import { AppComponent} from './app.component';
+
+import { LoginComponent } from './auth/login.component';
+import { RegistrationComponent } from './auth/registration.component';
+import { AuthService } from './auth/auth.service';
 
 import { WishComponent } from './wish/wish.component';
 import { WishService } from './wish/wish.service';
@@ -22,6 +26,7 @@ import { LS } from './services/local-storage.service';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     AppRoutingModule,
     DndModule.forRoot()
@@ -29,13 +34,15 @@ import { LS } from './services/local-storage.service';
   declarations: [
     AppComponent,
     WishComponent,
+    LoginComponent,
+    RegistrationComponent,
     WishListComponent/*,
     ClickOutside*/
   ],
   providers: [
     LS,
     DataMockService,
-
+    AuthService,
     WishService,
     WishListService
   ],
