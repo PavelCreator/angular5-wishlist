@@ -1,25 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
-function duplicatePassword(fieldName: string, secondFieldName: string) {
-  return function (input: any) {
-    if (!input.root || !input.root.controls) {
-      return null;
-    }
-    const exactMatch = input.root.controls[fieldName].value === input.root.controls[secondFieldName].value;
-    if (exactMatch) {
-      input.root.controls[fieldName].value = input.root.controls[secondFieldName].value;
-      // input.root.controls[secondFieldName].value = true;
-    }
-    console.log("input.root.controls =", input.root.controls);
-    return exactMatch ? null : {mismatchedPassword: true};
-  };
-}
-
 @Component({
   templateUrl: './registration.component.html'
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent {
 
   hideValidation = true;
 
@@ -37,33 +22,33 @@ export class RegistrationComponent implements OnInit {
   password = new FormControl('', [
     Validators.required,
     Validators.minLength(6),
-    Validators.maxLength(256),
-    duplicatePassword('password', 'confirmPassword')
+    Validators.maxLength(256)
   ]);
 
   confirmPassword = new FormControl('', [
-    Validators.required,
-    duplicatePassword('password', 'confirmPassword')
+    Validators.required
   ]);
-  regForm: FormGroup;
+
+  passwords: FormGroup = this.builder.group({
+    password: this.password,
+    confirmPassword: this.confirmPassword
+  }, {validator: this.checkPasswords('password', 'confirmPassword')});
+
+  regForm: FormGroup = this.builder.group({
+    username: this.username,
+    email: this.email,
+    passwords: this.passwords
+  });
 
   constructor(private builder: FormBuilder) {
   }
 
-  onChanges(): void {
-    /*this.regForm.valueChanges.subscribe(val => {
-      this.hideValidation = true;
-    });*/
-  }
-
-  ngOnInit() {
-    this.regForm = this.builder.group({
-      username: this.username,
-      email: this.email,
-      password: this.password,
-      confirmPassword: this.confirmPassword
-    });
-    this.onChanges();
+  checkPasswords(fieldName: string, secondFieldName: string) {
+    return function (group: FormGroup) {
+      const pass = group.controls[fieldName].value;
+      const confirmPass = group.controls[secondFieldName].value;
+      return pass === confirmPass ? null : {mismatchedPassword: true};
+    };
   }
 
   register() {

@@ -32,18 +32,16 @@
       <div [hidden]="!password.hasError('required')">The password is required</div>
       <div [hidden]="!password.hasError('minlength')">Minimum password length is 6 characters</div>
       <div [hidden]="!password.hasError('maxlength')">Maximum password length is 256 characters</div>
-      <div [hidden]="!password.hasError('mismatchedPassword')">The passwords must match</div>
     </div>
   </div>
-
   <div class="form-group row justify-content-md-center">
-    <label for="confirmPassword" class="col-2 col-form-label">Confirm password</label>
+    <label for="confirmPassword" class="col-2 col-form-label">Confirm password </label>
     <input type="password" name="confirmPassword" id="confirmPassword" class="col-4 form-control" [formControl]="confirmPassword">
   </div>
-  <div class="row" [hidden]="confirmPassword.valid || hideValidation">
+  <div class="row" [hidden]="confirmPassword.valid && passwords.valid || hideValidation">
     <div class="col-6 offset-3 alert alert-danger">
       <div [hidden]="!confirmPassword.hasError('required')">The confirm password is required</div>
-      <div [hidden]="!confirmPassword.hasError('mismatchedPassword')">The passwords must match</div>
+      <div [hidden]="!passwords.hasError('mismatchedPassword')">The passwords must match</div>
     </div>
   </div>
 
