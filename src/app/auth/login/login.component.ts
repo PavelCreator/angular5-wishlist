@@ -4,32 +4,22 @@ import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms'
 @Component({
   templateUrl: './login.component.html'
 })
-export class LoginComponent implements OnInit {
-  showValidation = false;
+export class LoginComponent {
+  hideValidation = true;
   email = new FormControl('', [Validators.required]);
   password = new FormControl('', [Validators.required]);
-  loginForm: FormGroup;
 
   constructor(private builder: FormBuilder) {
   }
 
-  onChanges(): void {
-    this.loginForm.valueChanges.subscribe(val => {
-      this.showValidation = false;
-    });
-  }
-
-  ngOnInit() {
-    this.loginForm = this.builder.group({
-      email: this.email,
-      password: this.password
-    });
-    this.onChanges();
-  }
+  loginForm: FormGroup = this.builder.group({
+    email: this.email,
+    password: this.password
+  });
 
   login() {
     if (!this.loginForm.valid) {
-      this.showValidation = true;
+      this.hideValidation = false;
       console.log('form invalid');
     } else {
       console.log('form valid, this.loginForm.value =', this.loginForm.value);

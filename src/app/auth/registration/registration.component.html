@@ -1,22 +1,22 @@
-<form [formGroup]="regForm" (ngSubmit)="register()" class="">
+<form [formGroup]="regForm" (ngSubmit)="register()" class="container">
 
   <div class="form-group row justify-content-center">
-    <label for="username" class="col-2 col-form-label">Username:</label>
-    <input type="text" name="username" id="username" class="col-4 form-control" [formControl]="username">
+    <label for="username" class="col-lg-2 col-md-3 col-lg-form-label">Username:</label>
+    <input type="text" name="username" id="username" class="col-lg-4 col-md-5 form-control" [formControl]="username">
   </div>
-  <div class="row" [hidden]="username.valid || hideValidation">
-    <div class="col-6 offset-3 alert alert-danger">
+  <div class="row justify-content-center" [hidden]="username.valid || hideValidation">
+    <div class="col-lg-6 col-md-8 align-self-center alert alert-danger">
       <div [hidden]="!username.hasError('required')">Username is required</div>
       <div [hidden]="!username.hasError('maxlength')">Maximum password length is 256 characters</div>
     </div>
   </div>
 
   <div class="form-group row justify-content-center">
-    <label for="email" class="col-2 col-form-label">Email:</label>
-    <input type="text" name="email" id="email" class="col-4 form-control" [formControl]="email">
+    <label for="email" class="col-lg-2 col-md-3 col-lg-form-label">Email:</label>
+    <input type="text" name="email" id="email" class="col-lg-4 col-md-5 form-control" [formControl]="email">
   </div>
-  <div class="row" [hidden]="email.valid || hideValidation">
-    <div class="col-6 offset-3 alert alert-danger">
+  <div class="row justify-content-center" [hidden]="email.valid || hideValidation">
+    <div class="col-lg-6 col-md-8 align-self-center alert alert-danger">
       <div [hidden]="!email.hasError('required')">Email is required</div>
       <div [hidden]="!email.hasError('email')">Email format is incorrect</div>
       <div [hidden]="!email.hasError('maxlength')">Maximum password length is 256 characters</div>
@@ -24,29 +24,30 @@
   </div>
 
   <div class="form-group row justify-content-md-center">
-    <label for="password" class="col-2 col-form-label">Password</label>
-    <input type="password" name="password" id="password" class="col-4 form-control" [formControl]="password">
+    <label for="password" class="col-lg-2 col-md-3 col-lg-form-label">Password</label>
+    <input type="password" name="password" id="password" class="col-lg-4 col-md-5 form-control" [formControl]="password">
   </div>
-  <div class="row" [hidden]="password.valid || hideValidation">
-    <div class="col-6 offset-3 alert alert-danger">
+  <div class="row justify-content-center" [hidden]="password.valid || hideValidation">
+    <div class="col-lg-6 col-md-8 align-self-center alert alert-danger">
       <div [hidden]="!password.hasError('required')">The password is required</div>
       <div [hidden]="!password.hasError('minlength')">Minimum password length is 6 characters</div>
       <div [hidden]="!password.hasError('maxlength')">Maximum password length is 256 characters</div>
     </div>
   </div>
+
   <div class="form-group row justify-content-md-center">
-    <label for="confirmPassword" class="col-2 col-form-label">Confirm password </label>
-    <input type="password" name="confirmPassword" id="confirmPassword" class="col-4 form-control" [formControl]="confirmPassword">
+    <label for="confirmPassword" class="col-lg-2 col-md-3 col-lg-form-label">Confirm password </label>
+    <input type="password" name="confirmPassword" id="confirmPassword" class="col-lg-4 col-md-5 form-control" [formControl]="confirmPassword">
   </div>
-  <div class="row" [hidden]="confirmPassword.valid && passwords.valid || hideValidation">
-    <div class="col-6 offset-3 alert alert-danger">
+  <div class="row justify-content-center" [hidden]="confirmPassword.valid && passwords.valid || hideValidation">
+    <div class="col-lg-6 col-md-8 align-self-center alert alert-danger">
       <div [hidden]="!confirmPassword.hasError('required')">The confirm password is required</div>
       <div [hidden]="!passwords.hasError('mismatchedPassword')">The passwords must match</div>
     </div>
   </div>
 
   <div class="row justify-content-center">
-    <ul class="list-inline-item text-center col-6">
+    <ul class="list-inline-item text-center col-lg-6 col-md-8">
       <li class="list-inline-item">
         <button type="button" routerLink="/list" class="btn btn-default">Back to list</button>
       </li>
