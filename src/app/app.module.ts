@@ -21,6 +21,7 @@ import { WishListService } from './wish-list/wish-list.service';
 
 import { DataMockService } from './api/data-mock.service';
 import { LS } from './services/local-storage.service';
+import { CustomValidationService } from './services/custom-validation.service';
 
 @NgModule({
   imports: [
@@ -41,6 +42,7 @@ import { LS } from './services/local-storage.service';
   ],
   providers: [
     LS,
+    CustomValidationService,
     DataMockService,
     AuthService,
     WishService,

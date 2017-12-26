@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { CustomValidationService } from './../../services/custom-validation.service';
 
 @Component({
   templateUrl: './registration.component.html'
 })
 export class RegistrationComponent {
+
+  constructor(private builder: FormBuilder,
+              private customValidationService: CustomValidationService) {
+  }
 
   hideValidation = true;
 
@@ -15,7 +20,7 @@ export class RegistrationComponent {
 
   email = new FormControl('', [
     Validators.required,
-    Validators.email,
+    this.customValidationService.email,
     Validators.maxLength(256)
   ]);
 
@@ -32,24 +37,15 @@ export class RegistrationComponent {
   passwords: FormGroup = this.builder.group({
     password: this.password,
     confirmPassword: this.confirmPassword
-  }, {validator: this.checkPasswords('password', 'confirmPassword')});
+  }, {
+    validator: this.customValidationService.matchTwoFields('password', 'confirmPassword')
+  });
 
   regForm: FormGroup = this.builder.group({
     username: this.username,
     email: this.email,
     passwords: this.passwords
   });
-
-  constructor(private builder: FormBuilder) {
-  }
-
-  checkPasswords(fieldName: string, secondFieldName: string) {
-    return function (group: FormGroup) {
-      const pass = group.controls[fieldName].value;
-      const confirmPass = group.controls[secondFieldName].value;
-      return pass === confirmPass ? null : {mismatchedPassword: true};
-    };
-  }
 
   register() {
     if (!this.regForm.valid) {
