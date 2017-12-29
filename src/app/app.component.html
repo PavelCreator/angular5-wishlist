@@ -1,18 +1,21 @@
 <div class="row">
-  <div class="col-sm">
+  <div class="col-sm cursor-pointer" (click)="clickLogo()">
     <h1 class="title">{{ title }}</h1>
     <p class="description">{{ description }}</p>
   </div>
   <div class="col-sm text-right">
     <ul class="list-inline">
       <li class="list-inline-item" *ngIf="!authenticated">
-        <button class="btn btn-primary" routerLink="/login" routerLinkActive="active">Login</button>
+        <button class="btn btn-success" routerLink="/list">My List</button>
       </li>
       <li class="list-inline-item" *ngIf="!authenticated">
-        <button class="btn btn-primary" routerLink="/registration" routerLinkActive="active">Registration</button>
+        <button class="btn btn-primary" routerLink="/login">Login</button>
+      </li>
+      <li class="list-inline-item" *ngIf="!authenticated">
+        <button class="btn btn-primary" routerLink="/registration">Registration</button>
       </li>
       <li class="list-inline-item" *ngIf="authenticated">
-        <button class="btn btn-primary" routerLink="/logout" routerLinkActive="active">Logout</button>
+        <button class="btn btn-primary" routerLink="/logout">Logout</button>
       </li>
     </ul>
   </div>

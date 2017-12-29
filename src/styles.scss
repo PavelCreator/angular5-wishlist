@@ -1,0 +1,56 @@
+@import "assets/scss/variables";
+
+/* Master Styles */
+body {
+  margin: 2em;
+}
+
+* {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.f16{
+  font-size: 16px;
+}
+
+button {
+  font-family: Arial;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn-success{
+  background-color: $green_57;
+  border: 1px solid $green_37;
+}
+.btn-danger{
+  background-color: $red_8a;
+  border: 1px solid $red_5d;
+}
+.btn-primary{
+  background-color: $blue_57;
+  border: 1px solid $blue_39;
+}
+a {
+  color: $blue_60;
+  &:hover {
+    color: $blue_03;
+  }
+}
+nav{
+  margin-bottom: 10px;
+}
+
+.cursor-default{
+  cursor: default;
+}
+.btn-success.cursor-default:hover{
+  color: inherit;
+  background-color: inherit;
+  border-color: inherit;
+  box-shadow: inherit;
+}
+.cursor-pointer{
+  cursor: pointer;
+}

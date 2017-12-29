@@ -3,7 +3,8 @@ import { Validators, FormBuilder, FormControl, FormGroup } from '@angular/forms'
 import { CustomValidationService } from './../../services/custom-validation.service';
 
 @Component({
-  templateUrl: './registration.component.html'
+  templateUrl: './registration.component.html',
+  styleUrls: ['./registration.component.scss']
 })
 export class RegistrationComponent {
 

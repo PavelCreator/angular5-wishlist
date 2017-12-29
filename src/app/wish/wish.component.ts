@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Location} from '@angular/common';
+import { Location } from '@angular/common';
 
 import { WishService } from './wish.service';
 import { Wish } from '../interfaces/wish';
@@ -9,7 +9,7 @@ import 'rxjs/add/operator/switchMap';
 @Component({
   selector: 'wl-wish',
   templateUrl: './wish.component.html',
-  styleUrls: ['./wish.component.css'],
+  styleUrls: ['./wish.component.scss'],
 })
 
 export class WishComponent implements OnInit {
