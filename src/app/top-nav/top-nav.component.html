@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-sm cursor-pointer" (click)="clickLogo()">
+    <h1 class="title">{{ title }}</h1>
+    <p class="description">{{ description }}</p>
+  </div>
+  <div class="col-sm text-right">
+    <ul class="list-inline">
+      <li class="list-inline-item" *ngIf="!authenticated">
+        <button class="btn btn-primary" routerLink="/list" routerLinkActive="btn-default">My List</button>
+      </li>
+      <li class="list-inline-item" *ngIf="!authenticated">
+        <button class="btn btn-primary" routerLink="/login" routerLinkActive="btn-default">Login</button>
+      </li>
+      <li class="list-inline-item" *ngIf="!authenticated">
+        <button class="btn btn-primary" routerLink="/registration" routerLinkActive="btn-default">Registration</button>
+      </li>
+      <li class="list-inline-item" *ngIf="authenticated">
+        <button class="btn btn-primary" routerLink="/logout" routerLinkActive="btn-default">Logout</button>
+      </li>
+    </ul>
+  </div>
+</div>

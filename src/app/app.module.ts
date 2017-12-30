@@ -7,7 +7,10 @@ import { DndModule } from 'ng2-dnd';
 
 import { AppRoutingModule} from './routing/routing.module';
 
+import { HideDonePipe } from './pipes/hide-done.pipe';
+
 import { AppComponent} from './app.component';
+import { TopNavComponent } from './top-nav/top-nav.component';
 
 import { LoginComponent } from './auth/login/login.component';
 import { RegistrationComponent } from './auth/registration/registration.component';
@@ -33,10 +36,12 @@ import { CustomValidationService } from './services/custom-validation.service';
     DndModule.forRoot()
   ],
   declarations: [
+    HideDonePipe,
     AppComponent,
-    WishComponent,
+    TopNavComponent,
     LoginComponent,
     RegistrationComponent,
+    WishComponent,
     WishListComponent/*,
     ClickOutside*/
   ],

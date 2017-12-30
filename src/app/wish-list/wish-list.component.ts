@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class WishListComponent implements OnInit {
   title = 'Wannado';
   wishes: Wish[];
+  hideDoneStatus = false;
   private editWishMode = false;
 
   constructor(private router: Router,

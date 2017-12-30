@@ -1,0 +1,13 @@
+@import "../../assets/scss/variables";
+
+.title{
+  font-size: 37px;
+  color: $blue_57;
+  margin-bottom: 0;
+}
+.description {
+  position: relative;
+  top: -5px;
+  left: 1px;
+  color: $blue_57;
+}

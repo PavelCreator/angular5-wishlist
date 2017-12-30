@@ -1,14 +1,23 @@
 <h2>Wish list <i class="fa fa-pencil-square-o" aria-hidden="true"></i></h2>
-<div>
-  <form (ngSubmit)="add(wishName.value); wishName.value=''" #heroForm="ngForm">
-    <label>New wish:</label> <input #wishName/>
-    <button type="submit">
-      Add
-    </button>
+
+<div class="row">
+  <form (ngSubmit)="add(wishName.value); wishName.value=''"
+        #heroForm="ngForm" class="col-md-6 form-inline">
+    <label for="add-new-wish" class="list-inline-item">New wish: </label>
+    <input #wishName type="text" id="add-new-wish" class="form-control list-inline-item"/>
+    <button type="submit" class="btn btn-default list-inline-item">Add</button>
+  </form>
+  <form (click)="hideDoneStatus = !hideDoneStatus" class="col-md-6 text-right hide-done-wishes-wrapper">
+    <label class="list-inline-item">Hide done wishes: </label>
+    <span class="list-inline-item big-right-checkbox">
+      <i *ngIf="!hideDoneStatus" class="fa fa-square-o" aria-hidden="true"></i>
+      <i *ngIf="hideDoneStatus" class="fa fa-check-square-o square" aria-hidden="true"></i>
+     </span>
   </form>
 </div>
+
 <ul class="wishes f16" dnd-sortable-container [sortableData]="wishes">
-  <li *ngFor="let wish of wishes; let i = index"
+  <li *ngFor="let wish of wishes | hideDone: hideDoneStatus; let i = index"
       [class.selected]="wish === selectedWish"
       [class.done]="wish.done"
       (click)="toggleWishStatus(wish.id)"
@@ -20,7 +29,7 @@
     <span class="content-wrapper">
       <span class="done-wrapper">
         <i *ngIf="!wish.done" class="fa fa-square-o" aria-hidden="true"></i>
-        <i *ngIf="wish.done" class="fa fa-check-square-o square" aria-hidden="true"></i>
+        <i *ngIf="wish.done" class="fa fa-check-square-o square done-icon" aria-hidden="true"></i>
       </span>
       <span *ngIf="!wish.edit" class="wish-name"
             (click)="editWishNameStart(wish, $event)">
@@ -38,13 +47,13 @@
       </form>
     </span>
 
-
     <div class="button-wrapper">
-      <button class="btn btn-success" dnd-sortable-handle (click)="$event.stopPropagation()">
+      <button class="btn btn-primary" dnd-sortable-handle (click)="$event.stopPropagation()">
         <i class="fa fa-arrows" aria-hidden="true"></i>
       </button>
       <button class="btn btn-primary" (click)="gotoDetail(wish.id); $event.stopPropagation()">
-        <i class="fa fa-cogs" aria-hidden="true"></i>
+        <!--<i class="fa fa-cogs" aria-hidden="true"></i>-->
+        Details
       </button>
       <button class="btn btn-danger" (click)="deleteWish(wish); $event.stopPropagation()">
         <i class="fa fa-times" aria-hidden="true"></i>

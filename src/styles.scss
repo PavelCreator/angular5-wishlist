@@ -20,6 +20,11 @@ button {
   border-radius: 4px;
   cursor: pointer;
 }
+.btn {
+  &:focus {
+    box-shadow: none;
+  }
+}
 .btn-success{
   background-color: $green_57;
   border: 1px solid $green_37;
@@ -31,6 +36,20 @@ button {
 .btn-primary{
   background-color: $blue_57;
   border: 1px solid $blue_39;
+}
+.btn-secondary{
+  background-color: $grey_86;
+  border-color: $grey_86;
+}
+.btn-default{
+  color: black;
+  background-color: $grey_dd;
+  border-color: $grey_dd;
+  &:hover, &:focus, &:not([disabled]):not(.disabled):active {
+    color: black;
+    background-color: $blue_ec;
+    border-color: $grey_dd;
+  }
 }
 a {
   color: $blue_60;
