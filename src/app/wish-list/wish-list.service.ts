@@ -4,9 +4,11 @@ import 'rxjs/add/operator/toPromise';
 
 import { Wish } from '../interfaces/wish';
 import { Constants } from '../services/constants.service';
-import { DataMockService } from '../api/data-mock.service';
 import { LS } from '../services/local-storage.service';
 import { UUID } from 'angular2-uuid';
+import { ApiService } from '../api/api.service';
+import { WishService } from '../wish/wish.service';
+import { BaseWishListService } from '../wish-list/base-wish-list.service';
 
 @Injectable()
 export class WishListService {
@@ -14,31 +16,35 @@ export class WishListService {
   private wishes: Wish[] = [];
 
   constructor(
-    // private http: Http,
-    private dataMock: DataMockService,
-    private ls: LS
+    private apiService: ApiService,
+    private ls: LS,
+    private baseWishListService: BaseWishListService,
   ) { }
 
   /*Work with wishList*/
-  loadDataMock(): void {
-    this.ls.clear();
-    this.dataMock.getWishes();
-  }
-
   getWishes(): Promise<Wish[]> {
     return new Promise<Wish[]>((resolve, reject) => {
       switch (this.mode) {
         case Constants.Modes.Guest:
 
+          console.log('1');
+          this.ls.clear();
+
           let wishesString = this.ls.getWishListString();
 
           if (!wishesString) {
-            this.loadDataMock();
-            wishesString = this.ls.getWishListString();
+            this.ls.clear();
+            console.log('2');
+            this.baseWishListService.getBaseWishList()
+              .then((wishes) => {
+                console.log('3');
+                console.log('wishes =', wishes);
+                this.baseWishListService.uploadBaseWishListToLS(wishes);
+                wishesString = this.ls.getWishListString();
+                this.wishes = this.ls.parseWishListString(wishesString);
+                resolve(this.wishes || []);
+              });
           }
-
-          this.wishes = this.ls.parseWishListString(wishesString);
-          resolve(this.wishes || []);
           break;
 
         case Constants.Modes.User:

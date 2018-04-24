@@ -4,7 +4,6 @@ import 'rxjs/add/operator/toPromise';
 
 import { Wish } from '../interfaces/wish';
 import { Constants } from '../services/constants.service';
-import { DataMockService } from '../api/data-mock.service';
 import { LS } from '../services/local-storage.service';
 
 @Injectable()
@@ -13,7 +12,6 @@ export class WishService {
   private wishes: Wish[] = [];
 
   constructor(
-    private dataMockService: DataMockService,
     private ls: LS
   ) { }
 

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { DndModule } from 'ng2-dnd';
 // import { ClickOutside } from './directives/click-outside.directive';
 
@@ -22,7 +22,8 @@ import { WishService } from './wish/wish.service';
 import { WishListComponent } from './wish-list/wish-list.component';
 import { WishListService } from './wish-list/wish-list.service';
 
-import { DataMockService } from './api/data-mock.service';
+import { BaseWishListService } from './wish-list/base-wish-list.service';
+import { ApiService } from './api/api.service';
 import { LS } from './services/local-storage.service';
 import { CustomValidationService } from './services/custom-validation.service';
 
@@ -31,7 +32,7 @@ import { CustomValidationService } from './services/custom-validation.service';
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
+    HttpClientModule,
     AppRoutingModule,
     DndModule.forRoot()
   ],
@@ -48,10 +49,11 @@ import { CustomValidationService } from './services/custom-validation.service';
   providers: [
     LS,
     CustomValidationService,
-    DataMockService,
+    BaseWishListService,
     AuthService,
     WishService,
-    WishListService
+    WishListService,
+    ApiService
   ],
   bootstrap: [AppComponent]
 })

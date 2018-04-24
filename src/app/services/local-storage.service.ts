@@ -42,7 +42,7 @@ export class LS {
     this.updateWish(newWish);
     const wishList: Array<string> = this.getWishList();
     wishList.push(newWish.id);
-    this.setWishList(wishList);
+    this.setWishIdList(wishList);
   }
 
   deleteWish(id: string) {
@@ -50,11 +50,11 @@ export class LS {
     const wishList: Array<string> = this.getWishList();
     const index = wishList.indexOf(id);
     wishList.splice(index, 1);
-    this.setWishList(wishList);
+    this.setWishIdList(wishList);
   }
 
   /*Wish list*/
-  setWishList(wishList: Array<string>) {
+  setWishIdList(wishList: Array<string>) {
     localStorage.setItem('wishList', JSON.stringify(wishList));
   }
 
@@ -75,12 +75,12 @@ export class LS {
     const wishList: Array<string> = JSON.parse(wishListString);
     const wishListWithData: Wish[] = [];
 
-    wishList.forEach(function (id: String) {
+    wishList.forEach((id: string) => {
       const wish = this.getWish(id);
       if (wish) {
         wishListWithData.push(wish);
       }
-    }.bind(this));
+    });
     return wishListWithData;
   }
 
@@ -90,7 +90,7 @@ export class LS {
     wishes.forEach(function (item: Wish) {
       wishList.push(item.id);
     });
-    this.setWishList(wishList);
+    this.setWishIdList(wishList);
   }
 
 }
