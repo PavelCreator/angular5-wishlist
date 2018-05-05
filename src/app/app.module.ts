@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { DndModule } from 'ng2-dnd';
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { ClickOutside } from './directives/click-outside.directive';
 
 import { AppRoutingModule} from './routing/routing.module';
@@ -36,7 +38,9 @@ import { WishInListComponent } from './wish-in-list/wish-in-list.component';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    DndModule.forRoot()
+    DndModule.forRoot(),
+    ToastModule.forRoot(),
+    BrowserAnimationsModule
   ],
   declarations: [
     HideDonePipe,

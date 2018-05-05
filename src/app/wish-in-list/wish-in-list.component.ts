@@ -1,9 +1,10 @@
-import { Component, EventEmitter, Input, OnInit, Output, Renderer2 } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, Renderer2, ViewContainerRef} from '@angular/core';
 import { Wish } from '../interfaces/wish';
 import { WishService } from '../wish/wish.service';
 import { Router } from '@angular/router';
 import { WishListService } from '../wish-list/wish-list.service';
 import { WishInListService } from './wish-in-list.service';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
   selector: 'wl-wish-in-list',
@@ -20,7 +21,10 @@ export class WishInListComponent {
               private wishService: WishService,
               private wishListService: WishListService,
               private wishInListService: WishInListService,
-              private renderer: Renderer2) {
+              private renderer: Renderer2,
+              public toastr: ToastsManager,
+              vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   gotoDetail(): void {
@@ -41,7 +45,6 @@ export class WishInListComponent {
 
   editWishNameStart($event: Event): void {
     $event.stopPropagation();
-
 /*    const onElement = this.renderer.selectRootElement('#wishNewNameInput');
     onElement.focus();*/
 
@@ -51,7 +54,7 @@ export class WishInListComponent {
 
   editWishNameComplete($event: any): void {
     if (this.wish.name === '') {
-// TODO add toast notification
+      this.toastr.warning('Please enter wish name', null, {dismiss: 'click'});
       return;
     }
     this.wishService
