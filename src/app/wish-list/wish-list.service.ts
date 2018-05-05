@@ -14,6 +14,7 @@ import { BaseWishListService } from '../wish-list/base-wish-list.service';
 export class WishListService {
   private mode = Constants.Modes.Guest;
   private wishes: Wish[] = [];
+  public editWishMode = false;
 
   constructor(
     private apiService: ApiService,
@@ -87,29 +88,6 @@ export class WishListService {
           const newWish = this.generateWish(name);
           this.ls.addWish(newWish);
           resolve();
-          break;
-
-        case Constants.Modes.User:
-          break;
-      }
-    });
-  }
-
-  toggleWishStatus(id: string): Promise<Wish[]> {
-    console.log('toggleStatus');
-    return new Promise<Wish[]>((resolve, reject) => {
-      switch (this.mode) {
-        case Constants.Modes.Guest:
-          for (let i = 0; i < this.wishes.length; i++) {
-            const wish = this.wishes[i];
-            console.log('wish =', wish);
-            if (wish.id === id) {
-              wish.done = !wish.done;
-              this.ls.updateWish(wish);
-              break;
-            }
-          }
-          resolve(this.wishes);
           break;
 
         case Constants.Modes.User:

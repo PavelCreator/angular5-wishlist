@@ -26,6 +26,8 @@ import { BaseWishListService } from './wish-list/base-wish-list.service';
 import { ApiService } from './api/api.service';
 import { LS } from './services/local-storage.service';
 import { CustomValidationService } from './services/custom-validation.service';
+import { WishInListService } from './wish-in-list/wish-in-list.service';
+import { WishInListComponent } from './wish-in-list/wish-in-list.component';
 
 @NgModule({
   imports: [
@@ -43,8 +45,9 @@ import { CustomValidationService } from './services/custom-validation.service';
     LoginComponent,
     RegistrationComponent,
     WishComponent,
-    WishListComponent/*,
-    ClickOutside*/
+    WishListComponent,
+    WishInListComponent
+    /*ClickOutside*/
   ],
   providers: [
     LS,
@@ -53,6 +56,7 @@ import { CustomValidationService } from './services/custom-validation.service';
     AuthService,
     WishService,
     WishListService,
+    WishInListService,
     ApiService
   ],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Wish } from '../interfaces/wish';
 import { WishService } from '../wish/wish.service';
 import { WishListService } from './wish-list.service';
@@ -14,11 +14,11 @@ export class WishListComponent implements OnInit {
   title = 'Wannado';
   wishes: Wish[];
   hideDoneStatus = false;
-  private editWishMode = false;
 
   constructor(private router: Router,
               private wishListService: WishListService,
-              private wishService: WishService) {
+              private wishService: WishService,
+              private renderer: Renderer2) {
   }
 
   getWishes(): void {
@@ -28,18 +28,6 @@ export class WishListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getWishes();
-  }
-
-  gotoDetail(id: string): void {
-    this.router.navigate(['/detail', id]);
-  }
-
-  toggleWishStatus(wishId: string) {
-    if (this.editWishMode) {
-      return;
-    }
-    this.wishListService.toggleWishStatus(wishId)
-      .then((wishes) => this.wishes = wishes);
   }
 
   add(name: string): void {
@@ -52,39 +40,7 @@ export class WishListComponent implements OnInit {
   }
 
   deleteWish(wish: Wish): void {
-    this.wishListService
-      .deleteWish(wish)
-      .then(
-        () => {
-          this.wishes = this.wishes.filter(h => h !== wish);
-        }
-      );
-  }
-
-  editWishNameStart(wish: Wish, $event: Event): void {
-    $event.stopPropagation();
-    this.editWishMode = true;
-    wish.edit = true;
-  }
-
-  editWishNameComplete(wish: Wish, $event: any): void {
-    console.log('$event =', $event);
-    if ($event) {
-      $event.stopPropagation();
-    }
-    this.wishService
-      .changeField(wish, 'name', wish.name)
-      .then(
-        () => {
-          for (let i = 0; i < this.wishes.length; i++) {
-            const _wish = this.wishes[i];
-            if (_wish.id === wish.id) {
-              _wish.edit = false;
-            }
-          }
-          this.editWishMode = false;
-        }
-      );
+    this.wishes = this.wishes.filter(h => h !== wish);
   }
 
   updateList(): void {

@@ -81,6 +81,8 @@
 .wish-name {
   cursor: text;
   border: 2px solid transparent;
+  position: relative;
+  bottom: 1px;
 }
 
 .wish-name:hover, .wish.dnd-sortable-drag {
@@ -90,15 +92,16 @@
 
 .edit-wish-wrapper {
   position: relative;
-  top: -2px;
+  top: -1px;
+  left: -4px;
+  input{
+    padding: 5px;
+  }
 }
 
 .button-wrapper {
   display: inline-block;
   float: right;
-  position: relative;
-  top: -5px;
-  right: 0;
 }
 
 .form-control:focus {

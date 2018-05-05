@@ -18,46 +18,12 @@
 
 <ul class="wishes f16" dnd-sortable-container [sortableData]="wishes">
   <li *ngFor="let wish of wishes | hideDone: hideDoneStatus; let i = index"
-      [class.selected]="wish === selectedWish"
-      [class.done]="wish.done"
-      (click)="toggleWishStatus(wish.id)"
-      class="wish"
       dnd-sortable [sortableIndex]="i"
-      (onDropSuccess)="updateList()"
-  >
-    <span class="badge">{{ i + 1 }}</span>
-    <span class="content-wrapper">
-      <span class="done-wrapper">
-        <i *ngIf="!wish.done" class="fa fa-square-o" aria-hidden="true"></i>
-        <i *ngIf="wish.done" class="fa fa-check-square-o square done-icon" aria-hidden="true"></i>
-      </span>
-      <span *ngIf="!wish.edit" class="wish-name"
-            (click)="editWishNameStart(wish, $event)">
-        {{ wish.name }}
-      </span><!--(click)="console.log(1)" -->
-      <form *ngIf="wish.edit" (ngSubmit)="editWishNameComplete(wish, $event)"
-
-            class="d-inline-block edit-wish-wrapper"><!--click-outside (clickOutside)="editWishNameComplete(wish, null)"-->
-        <div class="input-group">
-          <input class="form-control d-inline-block" name="name" [(ngModel)]="wish.name" placeholder="name"/>
-          <span class="input-group-btn">
-            <button type="submit" class="btn btn-success d-inline-block"><i class="fa fa-check" aria-hidden="true"></i></button>
-          </span>
-        </div>
-      </form>
-    </span>
-
-    <div class="button-wrapper">
-      <button class="btn btn-primary" dnd-sortable-handle (click)="$event.stopPropagation()">
-        <i class="fa fa-arrows" aria-hidden="true"></i>
-      </button>
-      <button class="btn btn-primary" (click)="gotoDetail(wish.id); $event.stopPropagation()">
-        <!--<i class="fa fa-cogs" aria-hidden="true"></i>-->
-        Details
-      </button>
-      <button class="btn btn-danger" (click)="deleteWish(wish); $event.stopPropagation()">
-        <i class="fa fa-times" aria-hidden="true"></i>
-      </button>
-    </div>
+      dnd-sortable-handle>
+    <wl-wish-in-list
+      [wish]="wish"
+      [index]="i"
+      (wishDelete)="deleteWish(wish)"
+    ></wl-wish-in-list>
   </li>
 </ul>

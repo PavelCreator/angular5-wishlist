@@ -1,0 +1,50 @@
+<div
+  [class.selected]="wish === selectedWish"
+  [class.done]="wish.done"
+  class="wish"
+  (onDropSuccess)="updateList()"
+>
+  <span class="badge">
+    {{ index + 1 }}
+  </span>
+  <span class="content-wrapper">
+
+    <span class="done-wrapper"
+          (mousedown)="$event.stopPropagation()"
+          (click)="toggleWishStatus($event)">
+      <i *ngIf="!wish.done" class="fa fa-square-o" aria-hidden="true"></i>
+      <i *ngIf="wish.done" class="fa fa-check-square-o square done-icon" aria-hidden="true"></i>
+    </span>
+
+    <span *ngIf="!wish.edit" class="wish-name"
+          (mousedown)="$event.stopPropagation()"
+          (click)="editWishNameStart($event)">
+      {{ wish.name }}
+    </span>
+    <form *ngIf="wish.edit" (ngSubmit)="editWishNameComplete($event)"
+          class="d-inline-block edit-wish-wrapper"><!--click-outside (clickOutside)="editWishNameComplete(wish, null)"-->
+      <div class="input-group">
+        <input class="form-control d-inline-block" name="name"
+               #wishNewNameInput
+               [(ngModel)]="wish.name" placeholder="name"/>
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-success d-inline-block"><i class="fa fa-check" aria-hidden="true"></i></button>
+        </span>
+      </div>
+    </form>
+
+  </span>
+
+  <div class="button-wrapper">
+
+    <button class="btn btn-primary" (click)="gotoDetail(); $event.stopPropagation()">
+      <!--<i class="fa fa-cogs" aria-hidden="true"></i>-->
+      Details
+    </button>
+
+    <button class="btn btn-danger" (click)="deleteWish(); $event.stopPropagation()">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </button>
+
+  </div>
+</div>
