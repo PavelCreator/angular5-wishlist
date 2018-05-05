@@ -2,6 +2,7 @@ import { Component, OnInit, Renderer2 } from '@angular/core';
 import { Wish } from '../interfaces/wish';
 import { WishService } from '../wish/wish.service';
 import { WishListService } from './wish-list.service';
+import { WishInListService } from '../wish-in-list/wish-in-list.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,8 +19,9 @@ export class WishListComponent implements OnInit {
   constructor(private router: Router,
               private wishListService: WishListService,
               private wishService: WishService,
-              private renderer: Renderer2) {
-  }
+              private renderer: Renderer2,
+              private wishInListService: WishInListService
+  ) {}
 
   getWishes(): void {
     this.wishListService.getWishes()
@@ -46,5 +48,6 @@ export class WishListComponent implements OnInit {
   updateList(): void {
     this.wishListService.updateList(this.wishes)
       .catch((wishes) => this.wishes = wishes);
+// TODO check that changes saved
   }
 }

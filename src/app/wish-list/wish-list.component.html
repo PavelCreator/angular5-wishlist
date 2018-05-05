@@ -19,7 +19,10 @@
 <ul class="wishes f16" dnd-sortable-container [sortableData]="wishes">
   <li *ngFor="let wish of wishes | hideDone: hideDoneStatus; let i = index"
       dnd-sortable [sortableIndex]="i"
-      dnd-sortable-handle>
+      [dragEnabled]="!wishInListService.editWishMode"
+      (onDropSuccess)="updateList()"
+      dnd-sortable-handle
+  >
     <wl-wish-in-list
       [wish]="wish"
       [index]="i"

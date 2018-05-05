@@ -28,7 +28,7 @@ export class WishInListComponent {
   }
 
   toggleWishStatus() {
-    if (this.wishListService.editWishMode) { return; }
+    if (this.wishInListService.editWishMode) { return; }
     this.wishInListService.toggleWishStatus(this.wish.id)
       .then(() => this.wish.done = !this.wish.done);
   }
@@ -45,7 +45,7 @@ export class WishInListComponent {
 /*    const onElement = this.renderer.selectRootElement('#wishNewNameInput');
     onElement.focus();*/
 
-    this.wishListService.editWishMode = true;
+    this.wishInListService.editWishMode = true;
     this.wish.edit = true;
   }
 
@@ -59,7 +59,7 @@ export class WishInListComponent {
       .then(
         () => {
           this.wish.edit = false;
-          this.wishListService.editWishMode = false;
+          this.wishInListService.editWishMode = false;
         }
       );
   }

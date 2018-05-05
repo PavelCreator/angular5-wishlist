@@ -5,20 +5,17 @@ import 'rxjs/add/operator/toPromise';
 import { Wish } from '../interfaces/wish';
 import { Constants } from '../services/constants.service';
 import { LS } from '../services/local-storage.service';
-import { UUID } from 'angular2-uuid';
 import { ApiService } from '../api/api.service';
-import { WishService } from '../wish/wish.service';
-import { BaseWishListService } from '../wish-list/base-wish-list.service';
 
 @Injectable()
 export class WishInListService {
   private mode = Constants.Modes.Guest;
   private wishes: Wish[] = [];
+  public editWishMode = false;
 
   constructor(
     private apiService: ApiService,
-    private ls: LS,
-    private baseWishListService: BaseWishListService,
+    private ls: LS
   ) { }
 
   toggleWishStatus(id: string): Promise<Wish[]> {
