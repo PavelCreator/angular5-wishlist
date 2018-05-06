@@ -5,12 +5,6 @@
   color: white;
 }
 
-.wishes {
-  margin: 0 0 2em 0;
-  list-style-type: none;
-  padding: 0;
-}
-
 .wish {
   position: relative;
   left: 0;
@@ -118,9 +112,4 @@
   font-size: 27px;
   position: relative;
   top: 5px;
-}
-
-.hide-done-wishes-wrapper {
-  position: relative;
-  top: -2px;
 }

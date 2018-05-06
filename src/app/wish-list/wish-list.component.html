@@ -1,19 +1,22 @@
 <h2>Wish list <i class="fa fa-pencil-square-o" aria-hidden="true"></i></h2>
 
 <div class="row">
+
   <form (ngSubmit)="add(wishName.value); wishName.value=''"
         #heroForm="ngForm" class="col-md-6 form-inline">
     <label for="add-new-wish" class="list-inline-item">New wish: </label>
     <input #wishName type="text" id="add-new-wish" class="form-control list-inline-item"/>
     <button type="submit" class="btn btn-default list-inline-item">Add</button>
   </form>
-  <form (click)="hideDoneStatus = !hideDoneStatus" class="col-md-6 text-right hide-done-wishes-wrapper">
+
+  <form class="col-md-6 text-right hide-done-wishes-wrapper">
     <label class="list-inline-item">Hide done wishes: </label>
-    <span class="list-inline-item big-right-checkbox">
+    <span class="list-inline-item big-right-checkbox" (click)="hideDoneStatus = !hideDoneStatus">
       <i *ngIf="!hideDoneStatus" class="fa fa-square-o" aria-hidden="true"></i>
       <i *ngIf="hideDoneStatus" class="fa fa-check-square-o square" aria-hidden="true"></i>
      </span>
   </form>
+
 </div>
 
 <ul class="wishes f16" dnd-sortable-container [sortableData]="wishes">

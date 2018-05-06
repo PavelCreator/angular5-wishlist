@@ -8,3 +8,6 @@ drag-n-drop
   when lock mode - change cursor style
 hide done wishes
   add cursor
+  reassign click area
+wish-in-list and wish-list component
+  clear extra style
