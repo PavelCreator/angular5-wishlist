@@ -1,6 +1,5 @@
 wish-in-list
   input name
-    B focus on element when edt begin
     B save old value and ESC button must restore, cancel button add
     M when open second edit wish-in-list name - close first edit mode and restore old value
     B responsive design for long names in 2 or more lines

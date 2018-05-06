@@ -32,7 +32,7 @@ export class WishListComponent implements OnInit {
     this.getWishes();
   }
 
-  add(name: string): void {
+  addWish(name: string): void {
     name = name.trim();
     if (!name) {
       return;

@@ -1,10 +1,8 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   EventEmitter,
   Input,
-  OnInit,
   Output,
   Renderer2,
   ViewChild,
@@ -28,8 +26,8 @@ export class WishInListComponent {
   @Input() index: number;
   @Output() wishDelete: EventEmitter<any> = new EventEmitter();
 
-  @ViewChild('nameWidth')
-  nameWidth: ElementRef;
+  @ViewChild('nameInput') nameInput: ElementRef;
+  @ViewChild('nameWidth') nameWidth: ElementRef;
 
   inputWidth: number;
 
@@ -64,14 +62,16 @@ export class WishInListComponent {
 
     this.inputWidth = this.nameWidth.nativeElement.offsetWidth + 10;
 
-/*    const onElement = this.renderer.selectRootElement('#wishNewNameInput');
-    onElement.focus();*/
-
     this.wishInListService.editWishMode = true;
     this.wish.edit = true;
+
+    setTimeout(() => {
+      this.nameInput.nativeElement.focus();
+    });
+
   }
 
-  editWishNameComplete($event: any): void {
+  editWishNameComplete(): void {
     if (this.wish.name === '') {
       this.toastr.warning('Please enter wish name', null, {dismiss: 'click'});
       return;

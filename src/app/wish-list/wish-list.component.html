@@ -2,7 +2,7 @@
 
 <div class="row">
 
-  <form (ngSubmit)="add(wishName.value); wishName.value=''"
+  <form (ngSubmit)="addWish(wishName.value); wishName.value=''"
         #heroForm="ngForm" class="col-md-6 form-inline">
     <label for="add-new-wish" class="list-inline-item">New wish: </label>
     <input #wishName type="text" id="add-new-wish" class="form-control list-inline-item"/>
