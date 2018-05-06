@@ -1,4 +1,15 @@
-import {Component, EventEmitter, Input, OnInit, Output, Renderer2, ViewContainerRef} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  Renderer2,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 import { Wish } from '../interfaces/wish';
 import { WishService } from '../wish/wish.service';
 import { Router } from '@angular/router';
@@ -16,6 +27,11 @@ export class WishInListComponent {
   @Input() wish: Wish;
   @Input() index: number;
   @Output() wishDelete: EventEmitter<any> = new EventEmitter();
+
+  @ViewChild('nameWidth')
+  nameWidth: ElementRef;
+
+  inputWidth: number;
 
   constructor(private router: Router,
               private wishService: WishService,
@@ -45,6 +61,9 @@ export class WishInListComponent {
 
   editWishNameStart($event: Event): void {
     $event.stopPropagation();
+
+    this.inputWidth = this.nameWidth.nativeElement.offsetWidth + 10;
+
 /*    const onElement = this.renderer.selectRootElement('#wishNewNameInput');
     onElement.focus();*/
 

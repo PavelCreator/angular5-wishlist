@@ -42,6 +42,7 @@ function assignIdToWish(wish) {
 }
 
 app.get('/base-wish-list', function(request, response){
+  console.log("Get base list");
   baseWishList.forEach(function (baseWish) {
     assignIdToWish(baseWish);
   });
