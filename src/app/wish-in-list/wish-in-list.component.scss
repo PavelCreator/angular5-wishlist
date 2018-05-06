@@ -15,23 +15,16 @@
   border-radius: 4px;
   cursor: move !important;
   border: 2px solid transparent;
-}
-
-.wish:hover {
-  background-color: $grey_dd;
-}
-
-.wish.done {
-  background-color: #ccc;
+  &:hover {
+    background-color: $grey_dd;
+  }
+  &.done {
+    background-color: #ccc;
+  }
 }
 
 .done-icon {
   color: $green_00;
-}
-
-.wishes .text {
-  position: relative;
-  top: -3px;
 }
 
 .badge {
@@ -68,10 +61,6 @@
   top: -4px;
 }
 
-.drag-handler {
-  cursor: move;
-}
-
 .wish-name {
   cursor: text;
   border: 2px solid transparent;
@@ -104,12 +93,4 @@
   border-color: $blue_83;
   outline: none;
   box-shadow: 0 0 0 0.2rem rgba($blue_83, 0.25);
-}
-
-.big-right-checkbox {
-  width: 29px;
-  text-align: left;
-  font-size: 27px;
-  position: relative;
-  top: 5px;
 }

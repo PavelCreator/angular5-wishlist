@@ -6,8 +6,5 @@ wish-in-list
     responsive design for long names in 2 or more lines
 drag-n-drop
   when lock mode - change cursor style
-hide done wishes
-  add cursor
-  reassign click area
 wish-in-list and wish-list component
-  clear extra style
+  .form-control:focus make global
