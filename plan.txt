@@ -1,6 +1,6 @@
 wish-in-list
   input name
-    save old value and ESC button must restore, cancel button add
-    when open second edit wish-in-list name - close first edit mode and restore old value
-    markup for buttons in right corner
-    responsive design for long names in 2 or more lines
+    B focus on element when edt begin
+    B save old value and ESC button must restore, cancel button add
+    M when open second edit wish-in-list name - close first edit mode and restore old value
+    B responsive design for long names in 2 or more lines
