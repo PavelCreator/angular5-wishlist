@@ -1,0 +1,10 @@
+wish-in-list
+  input name
+    save old value and ESC button must restore, cancel button add
+    when open second edit wish-in-list name - close first edit mode and restore old value
+    markup for buttons in right corner
+    responsive design for long names in 2 or more lines
+drag-n-drop
+  when lock mode - change cursor style
+hide done wishes
+  add cursor
