@@ -27,9 +27,10 @@ export class WishInListComponent implements OnInit {
   @Output() wishDelete: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('nameInput') nameInput: ElementRef;
-  @ViewChild('nameWidth') nameWidth: ElementRef;
+  @ViewChild('nameElWidth') nameElWidth: ElementRef;
 
-  inputWidth: number;
+  private nameInputWidth: number;
+  private nameCached: string;
 
   constructor(private router: Router,
               private wishService: WishService,
@@ -73,7 +74,9 @@ export class WishInListComponent implements OnInit {
 
     this.wishInListService.closeWishInListEditModes.next();
 
-    this.inputWidth = this.nameWidth.nativeElement.offsetWidth + 10;
+    this.nameInputWidth = this.nameElWidth.nativeElement.offsetWidth + 10;
+
+    this.nameCached = this.wish.name;
 
     this.wishInListService.editWishMode = true;
     this.wish.edit = true;
@@ -89,6 +92,7 @@ export class WishInListComponent implements OnInit {
       this.toastr.warning('Please enter wish name', null, {dismiss: 'click'});
       return;
     }
+
     this.wishService
       .changeField(this.wish, 'name', this.wish.name)
       .then(
@@ -97,5 +101,11 @@ export class WishInListComponent implements OnInit {
           this.wishInListService.editWishMode = false;
         }
       );
+  }
+
+  editWishNameCanceled(): void {
+    this.wish.name = this.nameCached;
+    this.wish.edit = false;
+    this.wishInListService.editWishMode = false;
   }
 }

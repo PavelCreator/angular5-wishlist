@@ -17,7 +17,7 @@
     </span>
 
     <span *ngIf="!wish.edit"
-          #nameWidth
+          #nameElWidth
           class="wish-name"
           (mousedown)="$event.stopPropagation()"
           (click)="editWishNameStart($event)">
@@ -26,13 +26,25 @@
     <form *ngIf="wish.edit" (ngSubmit)="editWishNameComplete($event)"
           class="d-inline-block edit-wish-wrapper"><!--click-outside (clickOutside)="editWishNameComplete(wish, null)"-->
       <div class="input-group">
+
         <input class="form-control d-inline-block" name="name"
                #nameInput
-               [style.width.px]="inputWidth"
+               [style.width.px]="nameInputWidth"
+               (keyup.esc)="editWishNameCanceled()"
                [(ngModel)]="wish.name" placeholder="Enter wish name..."/>
+
         <span class="input-group-btn">
-          <button type="submit" class="btn btn-success d-inline-block"><i class="fa fa-check" aria-hidden="true"></i></button>
+
+          <button type="submit" class="btn btn-success d-inline-block">
+            <i class="fa fa-check" aria-hidden="true"></i>
+          </button>
+
+          <button type="button" class="btn btn-secondary d-inline-block" (click)="editWishNameCanceled()">
+            <i class="fa fa-undo" aria-hidden="true"></i>
+          </button>
+
         </span>
+
       </div>
     </form>
 
