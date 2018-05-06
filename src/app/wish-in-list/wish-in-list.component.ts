@@ -2,7 +2,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  Input,
+  Input, OnInit,
   Output,
   Renderer2,
   ViewChild,
@@ -21,7 +21,7 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
   styleUrls: ['./wish-in-list.component.scss']
 })
 
-export class WishInListComponent {
+export class WishInListComponent implements OnInit {
   @Input() wish: Wish;
   @Input() index: number;
   @Output() wishDelete: EventEmitter<any> = new EventEmitter();
@@ -41,6 +41,12 @@ export class WishInListComponent {
     this.toastr.setRootViewContainerRef(vcr);
   }
 
+  ngOnInit(): void {
+    this.wishInListService
+      .closeWishInListEditModes
+      .subscribe(() => this.wish.edit = false);
+  }
+
   gotoDetail(): void {
     this.router.navigate(['/detail', this.wish.id]);
   }
@@ -54,11 +60,18 @@ export class WishInListComponent {
   deleteWish(): void {
     this.wishListService
       .deleteWish(this.wish)
-      .then(() => this.wishDelete.emit());
+      .then(() => {
+        if (this.wish.edit) {
+          this.wishInListService.editWishMode = false;
+        }
+        this.wishDelete.emit();
+      });
   }
 
   editWishNameStart($event: Event): void {
     $event.stopPropagation();
+
+    this.wishInListService.closeWishInListEditModes.next();
 
     this.inputWidth = this.nameWidth.nativeElement.offsetWidth + 10;
 

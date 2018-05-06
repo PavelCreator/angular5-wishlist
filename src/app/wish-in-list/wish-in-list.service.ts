@@ -1,17 +1,19 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs/Subject';
 
 import 'rxjs/add/operator/toPromise';
 
-import { Wish } from '../interfaces/wish';
-import { Constants } from '../services/constants.service';
-import { LS } from '../services/local-storage.service';
-import { ApiService } from '../api/api.service';
+import {Wish} from '../interfaces/wish';
+import {Constants} from '../services/constants.service';
+import {LS} from '../services/local-storage.service';
+import {ApiService} from '../api/api.service';
 
 @Injectable()
 export class WishInListService {
   private mode = Constants.Modes.Guest;
   private wishes: Wish[] = [];
   public editWishMode = false;
+  public closeWishInListEditModes: Subject<number> = new Subject<number>();
 
   constructor(
     private apiService: ApiService,
