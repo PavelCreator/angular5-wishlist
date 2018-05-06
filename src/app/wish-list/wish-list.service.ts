@@ -1,18 +1,20 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 import 'rxjs/add/operator/toPromise';
 
-import { Wish } from '../interfaces/wish';
-import { Constants } from '../services/constants.service';
-import { LS } from '../services/local-storage.service';
-import { UUID } from 'angular2-uuid';
-import { ApiService } from '../api/api.service';
-import { BaseWishListService } from './base-wish-list.service';
+import {Wish} from '../interfaces/wish';
+import {Constants} from '../services/constants.service';
+import {LS} from '../services/local-storage.service';
+import {UUID} from 'angular2-uuid';
+import {ApiService} from '../api/api.service';
+import {BaseWishListService} from './base-wish-list.service';
+import {Direction} from '../enums/direction.enum';
 
 @Injectable()
 export class WishListService {
   private mode = Constants.Modes.Guest;
   private wishes: Wish[] = [];
+  public addWishDirection: string;
 
   constructor(
     private apiService: ApiService,
@@ -71,16 +73,18 @@ export class WishListService {
       done: false,
       edit: false
     };
-    this.wishes.push(newWish);
     return newWish;
   }
 
-  createWish(name: string): Promise<Wish[]> {
+  arrayAddDirectionCommand(): string {
+    return this.addWishDirection === Direction.START ? 'unshift' : 'push';
+  }
+
+  createWishOnBE(wish: Wish): Promise<Wish[]> {
     return new Promise<Wish[]>((resolve, reject) => {
       switch (this.mode) {
         case Constants.Modes.Guest:
-          const newWish = this.generateWish(name);
-          this.ls.addWish(newWish);
+          this.ls.addWish(wish, this.arrayAddDirectionCommand());
           resolve();
           break;
 

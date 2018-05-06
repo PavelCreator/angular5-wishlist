@@ -2,3 +2,10 @@ wish-in-list
   input name
     B responsive design for long names in 2 or more lines
     M done click sortable (sometimes)
+    S details delete buttons deny sortable handle functionality
+wish-list
+  add wish
+    M sort to add to begin or to end
+    B remove clear LS, fix problems with empty page and check all functionality of wish-list
+bootstrap
+  migrate to 4.1.1, resolve problems

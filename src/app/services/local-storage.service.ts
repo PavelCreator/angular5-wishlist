@@ -38,10 +38,10 @@ export class LS {
     localStorage.setItem(`W|${wish.id}`, JSON.stringify(wish));
   }
 
-  addWish(newWish: Wish) {
+  addWish(newWish: Wish, arrayAddDirectionCommand: string) {
     this.updateWish(newWish);
     const wishList: Array<string> = this.getWishList();
-    wishList.push(newWish.id);
+    wishList[arrayAddDirectionCommand](newWish.id);
     this.setWishIdList(wishList);
   }
 
@@ -91,6 +91,15 @@ export class LS {
       wishList.push(item.id);
     });
     this.setWishIdList(wishList);
+  }
+
+  /*Add wish sort*/
+  setAddWishDirection(direction: string) {
+    localStorage.setItem('addWishDirection', direction);
+  }
+
+  getAddWishDirection(): string {
+    return localStorage.getItem(`addWishDirection`);
   }
 
 }
