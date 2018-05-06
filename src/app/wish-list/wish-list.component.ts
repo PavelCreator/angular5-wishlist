@@ -1,9 +1,10 @@
-import { Component, OnInit, Renderer2 } from '@angular/core';
-import { Wish } from '../interfaces/wish';
-import { WishService } from '../wish/wish.service';
-import { WishListService } from './wish-list.service';
-import { WishInListService } from '../wish-in-list/wish-in-list.service';
-import { Router } from '@angular/router';
+import {Component, OnInit, Renderer2, ViewContainerRef} from '@angular/core';
+import {Wish} from '../interfaces/wish';
+import {WishService} from '../wish/wish.service';
+import {WishListService} from './wish-list.service';
+import {WishInListService} from '../wish-in-list/wish-in-list.service';
+import {Router} from '@angular/router';
+import {ToastsManager} from 'ng2-toastr';
 
 @Component({
   selector: 'wl-wish-list',
@@ -20,21 +21,25 @@ export class WishListComponent implements OnInit {
               private wishListService: WishListService,
               private wishService: WishService,
               private renderer: Renderer2,
-              private wishInListService: WishInListService
-  ) {}
-
-  getWishes(): void {
-    this.wishListService.getWishes()
-      .then(wishes => this.wishes = wishes);
+              private wishInListService: WishInListService,
+              public toastr: ToastsManager,
+              vcr: ViewContainerRef) {
+    this.toastr.setRootViewContainerRef(vcr);
   }
 
   ngOnInit(): void {
     this.getWishes();
   }
 
+  getWishes(): void {
+    this.wishListService.getWishes()
+      .then(wishes => this.wishes = wishes);
+  }
+
   addWish(name: string): void {
     name = name.trim();
     if (!name) {
+      this.toastr.warning('Please enter wish name', null, {dismiss: 'click'});
       return;
     }
     this.wishListService.createWish(name)
