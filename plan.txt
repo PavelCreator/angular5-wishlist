@@ -4,7 +4,3 @@ wish-in-list
     when open second edit wish-in-list name - close first edit mode and restore old value
     markup for buttons in right corner
     responsive design for long names in 2 or more lines
-drag-n-drop
-  when lock mode - change cursor style
-wish-in-list and wish-list component
-  .form-control:focus make global

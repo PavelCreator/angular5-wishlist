@@ -1,6 +1,7 @@
 <div
   [class.selected]="wish === selectedWish"
   [class.done]="wish.done"
+  [class.sortable-disabled]="wishInListService.editWishMode"
   class="wish"
 >
   <span class="badge">
