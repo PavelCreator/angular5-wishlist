@@ -86,11 +86,3 @@
   display: inline-block;
   float: right;
 }
-
-.form-control:focus {
-  color: #495057;
-  background-color: #fff;
-  border-color: $blue_83;
-  outline: none;
-  box-shadow: 0 0 0 0.2rem rgba($blue_83, 0.25);
-}
