@@ -45,7 +45,7 @@ export class WishInListComponent implements OnInit {
   ngOnInit(): void {
     this.wishInListService
       .closeWishInListEditModes
-      .subscribe(() => this.wish.edit = false);
+      .subscribe(() => this.editWishNameCanceled());
   }
 
   gotoDetail(): void {
@@ -104,8 +104,10 @@ export class WishInListComponent implements OnInit {
   }
 
   editWishNameCanceled(): void {
-    this.wish.name = this.nameCached;
-    this.wish.edit = false;
-    this.wishInListService.editWishMode = false;
+    if (this.wish.edit) {
+      this.wish.name = this.nameCached;
+      this.wish.edit = false;
+      this.wishInListService.editWishMode = false;
+    }
   }
 }
