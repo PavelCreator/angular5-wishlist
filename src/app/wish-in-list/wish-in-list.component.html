@@ -50,14 +50,19 @@
 
   </span>
 
-  <div class="button-wrapper">
+  <div class="button-wrapper"
+       (mousedown)="$event.stopPropagation()">
 
-    <button class="btn btn-primary" (click)="gotoDetail(); $event.stopPropagation()">
+    <button class="btn btn-primary"
+            (click)="gotoDetail()"
+    >
       <!--<i class="fa fa-cogs" aria-hidden="true"></i>-->
       Details
     </button>
 
-    <button class="btn btn-danger" (click)="deleteWish(); $event.stopPropagation()">
+    <button class="btn btn-danger"
+            (click)="deleteWish()"
+    >
       <i class="fa fa-times" aria-hidden="true"></i>
     </button>
 
