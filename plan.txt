@@ -2,7 +2,6 @@ wish-in-list
   input name
     B responsive design for long names in 2 or more lines
     M done click sortable (sometimes)
-    S restore old name when switch to another input edit mode
 wish-list
   add wish
     B remove clear LS, fix problems with empty page and check all functionality of wish-list

@@ -1,7 +1,7 @@
 <div
   [class.selected]="wish === selectedWish"
   [class.done]="wish.done"
-  [class.sortable-disabled]="wishInListService.editWishMode"
+  [class.cursor-auto]="wishInListService.editWishMode"
   class="wish"
 >
   <span class="badge">
@@ -10,10 +10,15 @@
   <span class="content-wrapper">
 
     <span class="done-wrapper"
+          [class.cursor-auto]="wishInListService.editWishMode"
           (mousedown)="$event.stopPropagation()"
           (click)="toggleWishStatus($event)">
-      <i *ngIf="!wish.done" class="fa fa-square-o" aria-hidden="true"></i>
-      <i *ngIf="wish.done" class="fa fa-check-square-o square done-icon" aria-hidden="true"></i>
+      <i *ngIf="!wish.done"
+         [class.done-icon-disabled]="wishInListService.editWishMode"
+         class="fa fa-square-o" aria-hidden="true"></i>
+      <i *ngIf="wish.done"
+         [class.done-icon-disabled]="wishInListService.editWishMode"
+         class="fa fa-check-square-o square done-icon" aria-hidden="true"></i>
     </span>
 
     <span *ngIf="!wish.edit"
@@ -54,15 +59,12 @@
        (mousedown)="$event.stopPropagation()">
 
     <button class="btn btn-primary"
-            (click)="gotoDetail()"
-    >
-      <!--<i class="fa fa-cogs" aria-hidden="true"></i>-->
+            (click)="gotoDetail()">
       Details
     </button>
 
     <button class="btn btn-danger"
-            (click)="deleteWish()"
-    >
+            (click)="deleteWish()">
       <i class="fa fa-times" aria-hidden="true"></i>
     </button>
 

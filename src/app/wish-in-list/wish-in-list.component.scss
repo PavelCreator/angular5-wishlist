@@ -15,9 +15,6 @@
   border-radius: 4px;
   cursor: move !important;
   border: 2px solid transparent;
-  &.sortable-disabled{
-    cursor: auto !important;
-  }
   &:hover {
     background-color: $grey_dd;
   }
@@ -28,6 +25,10 @@
 
 .done-icon {
   color: $green_00;
+}
+
+.done-icon-disabled {
+  color: grey;
 }
 
 .badge {
@@ -91,4 +92,8 @@
   float: right;
   position: relative;
   top: -5px;
+}
+
+.cursor-auto{
+  cursor: auto !important;
 }
