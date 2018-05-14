@@ -2,12 +2,12 @@
   [class.selected]="wish === selectedWish"
   [class.done]="wish.done"
   [class.cursor-auto]="wishInListService.editWishMode"
-  class="wish"
+  class="wish flex-container"
 >
-  <span class="badge">
+  <span class="badge flex-fixed">
     {{ index + 1 }}
   </span>
-  <span class="content-wrapper">
+  <span class="content-wrapper flex-fluid">
 
     <span class="done-wrapper"
           [class.cursor-auto]="wishInListService.editWishMode"
@@ -21,14 +21,15 @@
          class="fa fa-check-square-o square done-icon" aria-hidden="true"></i>
     </span>
 
-    <span *ngIf="!wish.edit"
+    <span class="name-wrapper">
+      <span *ngIf="!wish.edit"
           #nameElWidth
           class="wish-name"
           (mousedown)="$event.stopPropagation()"
           (click)="editWishNameStart($event)">
       {{ wish.name }}
     </span>
-    <form *ngIf="wish.edit" (ngSubmit)="editWishNameComplete($event)"
+      <form *ngIf="wish.edit" (ngSubmit)="editWishNameComplete($event)"
           class="d-inline-block edit-wish-wrapper"><!--click-outside (clickOutside)="editWishNameComplete(wish, null)"-->
       <div class="input-group">
 
@@ -52,10 +53,11 @@
 
       </div>
     </form>
+    </span>
 
   </span>
 
-  <div class="button-wrapper"
+  <span class="button-wrapper flex-fixed"
        (mousedown)="$event.stopPropagation()">
 
     <button class="btn btn-primary"
@@ -68,5 +70,5 @@
       <i class="fa fa-times" aria-hidden="true"></i>
     </button>
 
-  </div>
+  </span>
 </div>

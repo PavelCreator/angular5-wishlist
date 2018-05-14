@@ -15,7 +15,8 @@ app.get('/', function(request,response){
 });
 
 const baseWishList = [
-  {id: '', name: 'Забросить ботинки на провода', done: true, edit: false},
+  {id: '', name: 'Забросить ботинки на провода \n' +
+    'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto at autem corporis debitis deleniti dolor, eius et fugiat natus nemo, porro possimus provident quam quia rerum soluta, temporibus. Blanditiis commodi consequatur consequuntur dolore ea eum expedita facilis iusto laboriosam mollitia nesciunt nisi nostrum nulla, quos repellat reprehenderit voluptatibus. Accusamus ad amet animi eveniet ipsum iure nihil non placeat quaerat quas, quisquam rem vel. Assumenda deleniti dignissimos minus, nisi repudiandae veniam?', done: true, edit: false},
   {id: '', name: 'Прокатиться на крыше транспортного средства', done: true, edit: false},
   {id: '', name: 'Сделать настоящее тату', done: true, edit: false},
   {id: '', name: 'Научиться прыгать на скейте', done: false, edit: false},

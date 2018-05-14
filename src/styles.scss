@@ -80,3 +80,12 @@ nav{
   outline: none;
   box-shadow: 0 0 0 0.2rem rgba($blue_83, 0.25);
 }
+.flex-container{
+  display: flex;
+}
+.flex-fixed{
+  flex: 0;
+}
+.flex-fluid{
+  flex: 1;
+}
