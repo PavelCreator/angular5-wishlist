@@ -34,12 +34,14 @@
           class="d-inline-block edit-wish-wrapper"><!--click-outside (clickOutside)="editWishNameComplete(wish, null)"-->
       <div class="input-group">
 
-        <input class="form-control d-inline-block" name="name" autocomplete="off"
+        <textarea class="form-control d-inline-block wish-name-textarea" name="name" autocomplete="off"
                #nameInput
                [style.width.px]="nameInputWidth"
+               [style.height.px]="nameInputHeight"
                (keyup.esc)="editWishNameCanceled()"
-               (ngModelChange)="onNameChange()"
-               [(ngModel)]="wish.name" placeholder="Enter wish name..."/>
+               (input)="onNameChange($event)"
+               [(ngModel)]="wish.name" placeholder="Enter wish name...">
+        </textarea>
 
         <span class="input-group-btn">
 

@@ -31,6 +31,7 @@ export class WishInListComponent implements OnInit {
   @ViewChild('row') row: ElementRef;
 
   private nameInputWidth: number;
+  private nameInputHeight: number;
   private nameCached: string;
 
   constructor(private router: Router,
@@ -71,6 +72,8 @@ export class WishInListComponent implements OnInit {
   }
 
   onNameChange($event): void {
+    this.wishInListService.nameRegexValidation($event, /\s\s+/g, ' ');
+    this.wishInListService.nameRegexValidation($event, /\n/g, '');
   }
 
   editWishNameStart($event: Event): void {
@@ -79,6 +82,7 @@ export class WishInListComponent implements OnInit {
     this.wishInListService.closeWishInListEditModes.next();
 
     this.nameInputWidth = this.wishInListService.setInputWidth(this.nameText, this.row);
+    this.nameInputHeight = this.wishInListService.setInputHeight(this.nameText, this.row);
 
     this.nameCached = this.wish.name;
 

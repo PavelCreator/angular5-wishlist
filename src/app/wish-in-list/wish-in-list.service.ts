@@ -15,6 +15,11 @@ export class WishInListService {
   public editWishMode = false;
   public closeWishInListEditModes: Subject<number> = new Subject<number>();
 
+  private diffWidthMin = 253;
+  private widthBonus = 21;
+  private heightBonus = 21;
+  private heightBonusOver = 31;
+
   constructor(
     private apiService: ApiService,
     private ls: LS
@@ -74,14 +79,33 @@ export class WishInListService {
     });
   }
 
+  calcWidthDiff(nameText: ElementRef, row: ElementRef): number {
+    return row.nativeElement.offsetWidth - nameText.nativeElement.offsetWidth;
+  }
+
   setInputWidth(nameText: ElementRef, row: ElementRef): number {
     const rowWidth = row.nativeElement.offsetWidth,
       nameTextWidth = nameText.nativeElement.offsetWidth,
-      diff = rowWidth - nameTextWidth,
-      diffMin = 253,
-      widthBonus = 10;
+      diffWidth = this.calcWidthDiff(nameText, row);
 
-    return diff > diffMin ? nameTextWidth + widthBonus : rowWidth - diffMin;
+    return diffWidth > this.diffWidthMin ? nameTextWidth + this.widthBonus : rowWidth - this.diffWidthMin;
+  }
+
+  setInputHeight(nameText: ElementRef, row: ElementRef): number {
+    const nameTextHeight = nameText.nativeElement.offsetHeight,
+      diffWidth = this.calcWidthDiff(nameText, row);
+    console.log(diffWidth > this.diffWidthMin ? nameTextHeight + this.heightBonus : nameTextHeight + this.heightBonusOver);
+    return diffWidth > this.diffWidthMin ? nameTextHeight + this.heightBonus : nameTextHeight + this.heightBonusOver;
+  }
+
+  nameRegexValidation(event, regex: RegExp, characterReplacement: string): void {
+    const target = event.target,
+      cursorPosition = target.selectionStart - 1;
+
+    if (target.value.search(regex) !== -1) {
+      target.value = target.value.replace(regex, characterReplacement);
+      target.selectionStart = target.selectionEnd = cursorPosition;
+    }
   }
 
 }

@@ -1,5 +1,6 @@
 wish-in-list
   input name
+    B change input to textarea and write logic for height
     M when you fill some symbols in input - wide that input till the maximum
     B responsive design for long names in 2 or more lines - edit mode
     B responsive design for long names in 2 or more lines - input vertical align
