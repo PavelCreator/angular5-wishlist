@@ -78,7 +78,7 @@ export class WishInListService {
     const rowWidth = row.nativeElement.offsetWidth,
       nameTextWidth = nameText.nativeElement.offsetWidth,
       diff = rowWidth - nameTextWidth,
-      diffMin = 254,
+      diffMin = 253,
       widthBonus = 10;
 
     return diff > diffMin ? nameTextWidth + widthBonus : rowWidth - diffMin;
