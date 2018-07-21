@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {ElementRef, Injectable} from '@angular/core';
 import {Subject} from 'rxjs/Subject';
 
 import 'rxjs/add/operator/toPromise';
@@ -72,6 +72,16 @@ export class WishInListService {
           break;
       }
     });
+  }
+
+  setInputWidth(nameText: ElementRef, row: ElementRef): number {
+    const rowWidth = row.nativeElement.offsetWidth,
+      nameTextWidth = nameText.nativeElement.offsetWidth,
+      diff = rowWidth - nameTextWidth,
+      diffMin = 254,
+      widthBonus = 10;
+
+    return diff > diffMin ? nameTextWidth + widthBonus : rowWidth - diffMin;
   }
 
 }

@@ -3,6 +3,7 @@
   [class.done]="wish.done"
   [class.cursor-auto]="wishInListService.editWishMode"
   class="wish flex-container"
+  #row
 >
   <span class="badge flex-fixed">
     {{ index + 1 }}
@@ -23,7 +24,7 @@
 
     <span class="name-wrapper">
       <span *ngIf="!wish.edit"
-          #nameElWidth
+          #nameText
           class="wish-name"
           (mousedown)="$event.stopPropagation()"
           (click)="editWishNameStart($event)">
@@ -37,6 +38,7 @@
                #nameInput
                [style.width.px]="nameInputWidth"
                (keyup.esc)="editWishNameCanceled()"
+               (ngModelChange)="onNameChange()"
                [(ngModel)]="wish.name" placeholder="Enter wish name..."/>
 
         <span class="input-group-btn">

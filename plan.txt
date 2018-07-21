@@ -1,6 +1,8 @@
 wish-in-list
   input name
-    B responsive design for long names in 2 or more lines
+    M when you fill some symbols in input - wide that input till the maximum
+    B responsive design for long names in 2 or more lines - edit mode
+    B responsive design for long names in 2 or more lines - input vertical align
     M done click sortable (sometimes)
 wish-list
   add wish

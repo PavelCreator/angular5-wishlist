@@ -27,7 +27,8 @@ export class WishInListComponent implements OnInit {
   @Output() wishDelete: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('nameInput') nameInput: ElementRef;
-  @ViewChild('nameElWidth') nameElWidth: ElementRef;
+  @ViewChild('nameText') nameText: ElementRef;
+  @ViewChild('row') row: ElementRef;
 
   private nameInputWidth: number;
   private nameCached: string;
@@ -69,12 +70,15 @@ export class WishInListComponent implements OnInit {
       });
   }
 
+  onNameChange($event): void {
+  }
+
   editWishNameStart($event: Event): void {
     $event.stopPropagation();
 
     this.wishInListService.closeWishInListEditModes.next();
 
-    this.nameInputWidth = this.nameElWidth.nativeElement.offsetWidth + 10;
+    this.nameInputWidth = this.wishInListService.setInputWidth(this.nameText, this.row);
 
     this.nameCached = this.wish.name;
 

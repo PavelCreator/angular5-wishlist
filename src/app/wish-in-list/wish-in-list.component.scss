@@ -71,6 +71,7 @@
   border: 2px solid transparent;
   position: relative;
   bottom: 1px;
+  margin-right: 3px;
 }
 
 .wish-name:hover, .wish.dnd-sortable-drag {
@@ -81,6 +82,7 @@
 .edit-wish-wrapper {
   position: relative;
   left: -4px;
+  margin-right: -4px;
   input{
     padding: 5px;
     padding-top: 5px;
@@ -92,6 +94,9 @@
   height: 37px;
   button {
     margin-left: 3px;
+    &:first-child{
+      margin-left: 0px;
+    }
   }
 }
 
